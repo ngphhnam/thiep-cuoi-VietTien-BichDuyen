@@ -1,0 +1,190 @@
+/* ==========================================================================
+   WEDDING INVITATION - ANIMATIONS & KEYFRAMES
+   ========================================================================== */
+
+/* Hiệu ứng xoay tròn đĩa nhạc */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 10s linear infinite;
+}
+
+.animate-spin-paused {
+  animation-play-state: paused !important;
+}
+
+/* Hiệu ứng bàn tay chỉ dẫn nhấp nháy */
+@keyframes handTap {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-4px, -4px) scale(0.92);
+  }
+}
+
+.animate-hand-tap {
+  animation: handTap 1.2s ease-in-out infinite;
+}
+
+/* Hiệu ứng nhịp đập trái tim */
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.25);
+  }
+  30% {
+    transform: scale(1.05);
+  }
+  45% {
+    transform: scale(1.2);
+  }
+}
+
+.animate-heart-pulse {
+  animation: heartPulse 1.8s ease-in-out infinite;
+}
+
+/* Hiệu ứng trôi bồng bềnh nhẹ nhàng */
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: gentleFloat 3s ease-in-out infinite;
+}
+
+/* Hiệu ứng sóng âm nhạc thanh equalizer */
+@keyframes soundWave {
+  0%, 100% {
+    height: 4px;
+  }
+  50% {
+    height: 18px;
+  }
+}
+
+.sound-bar:nth-child(1) { animation: soundWave 0.8s ease-in-out infinite 0.1s; }
+.sound-bar:nth-child(2) { animation: soundWave 0.8s ease-in-out infinite 0.3s; }
+.sound-bar:nth-child(3) { animation: soundWave 0.8s ease-in-out infinite 0.2s; }
+.sound-bar:nth-child(4) { animation: soundWave 0.8s ease-in-out infinite 0.4s; }
+
+/* Hiệu ứng mở phong bì 3D Flap */
+@keyframes envelopeOpenFlap {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-180deg);
+  }
+}
+
+.envelope-opening-active .envelope-flap-top {
+  animation: envelopeOpenFlap 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: top center;
+}
+
+/* Hiệu ứng phóng to & bay lên của phong bì */
+@keyframes envelopeLiftAndZoom {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1.2) translateY(-30px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.35) translateY(-60px);
+    opacity: 0;
+  }
+}
+
+.envelope-opening-active .envelope-container {
+  animation: envelopeLiftAndZoom 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Hiệu ứng Fade In & Slide Up khi cuộn trang */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.85s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay tiện ích cho danh sách */
+.delay-100 { transition-delay: 0.1s !important; }
+.delay-200 { transition-delay: 0.2s !important; }
+.delay-300 { transition-delay: 0.3s !important; }
+.delay-400 { transition-delay: 0.4s !important; }
+.delay-500 { transition-delay: 0.5s !important; }
+
+/* Hiệu ứng lấp lánh ánh kim */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.gold-shimmer-text {
+  background: linear-gradient(90deg, #c9a227 0%, #f7e199 50%, #c9a227 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s infinite linear;
+}
+
+/* Hiệu ứng vòng tròn lan tỏa Ripple */
+@keyframes ripplePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(201, 162, 39, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(201, 162, 39, 0);
+  }
+}
+
+.animate-ripple {
+  animation: ripplePulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Hiệu ứng Toast trượt vào */
+@keyframes slideUpToast {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.toast-slide-up {
+  animation: slideUpToast 0.3s ease forwards;
+}

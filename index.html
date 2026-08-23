@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Bích Duyên &amp; Việt Tiến - Lễ Thành Hôn</title>
+  <meta name="description" content="Trân trọng kính mời quý khách đến chung vui cùng gia đình chúng tôi tại Lễ Thành Hôn của Bích Duyên & Việt Tiến." />
+  
+  <!-- Open Graph / Facebook / Zalo -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Bích Duyên &amp; Việt Tiến - Lễ Thành Hôn" />
+  <meta property="og:description" content="Trân trọng kính mời quý khách đến chung vui cùng Bích Duyên & Việt Tiến vào ngày 26.10.2026 tại TP. Đà Nẵng." />
+  <meta property="og:image" content="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/3d8aabaf-137f-413c-a4b3-1f5c04583b4d.webp" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💛</text></svg>" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <!-- Canvas Confetti Library for RSVP & Celebrations -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body class="envelope-locked">
+
+  <!-- HIỆU ỨNG CÁNH HOA & ÁNH KIM RƠI -->
+  <canvas id="petals-canvas"></canvas>
+
+  <!-- =========================================================================
+       1. MÀN HÌNH MỞ PHONG BÌ 3D (COVER-1 ENVELOPE OPENING OVERLAY)
+       ========================================================================= -->
+  <div id="envelope-overlay" class="envelope-overlay">
+    <div class="envelope-header reveal-item is-revealed">
+      <p class="envelope-greeting-tag">TRÂN TRỌNG KÍNH MỜI</p>
+      <h1 id="envelope-guest-name" class="envelope-guest-name">bạn Minh Hiếu</h1>
+    </div>
+
+    <!-- Bao thư 3D với hiệu ứng lật nắp -->
+    <div id="envelope-wrapper" class="envelope-wrapper envelope-container" title="Bấm để mở thiệp">
+      <div class="envelope-shadow"></div>
+      
+      <div class="envelope-box">
+        <!-- Nắp phong bì 3D Flap -->
+        <div class="envelope-flap-top"></div>
+        
+        <!-- Con dấu sáp vàng -->
+        <div class="envelope-seal">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+
+        <!-- Bàn tay chỉ dẫn nhấp nháy thu hút bấm mở -->
+        <div class="envelope-hand-pointer animate-hand-tap">
+          <svg viewBox="0 0 36 36">
+            <path d="M13 10V24L9.5 20.5C8.5 19.5 7 19.5 6 20.5C5 21.5 5 23 6 24L11 30C12 31.5 14 33 17 33H22C26.5 33 30 29.5 30 25V17C30 15.5 28.5 14 27 14C26.3 14 25.7 14.3 25.2 14.7C25.1 13.2 23.7 12 22 12C21.2 12 20.5 12.3 20 12.8C19.5 11.8 18.3 11 17 11C16.2 11 15.5 11.3 15 11.8V10C15 8.5 13.5 7 12 7C10.5 7 9 8.5 9 10V16" fill="#c9a227" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="envelope-footer reveal-item is-revealed delay-200">
+      <div class="envelope-couple-names">
+        <span>BÍCH DUYÊN</span>
+        <span class="ampersand">&amp;</span>
+        <span>VIỆT TIẾN</span>
+      </div>
+      <div class="envelope-date-box">26 . 10 . 2026</div>
+      <p class="envelope-hint-text">(Chạm vào phong bì để mở thiệp)</p>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. THANH ĐIỀU HƯỚNG (NAVIGATION BAR)
+       ========================================================================= -->
+  <header id="site-header" class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="nav-logo">D &amp; T</a>
+      <ul class="nav-links">
+        <li><a href="#story">Câu chuyện</a></li>
+        <li><a href="#couple">Cặp đôi</a></li>
+        <li><a href="#venues">Lịch trình</a></li>
+        <li><a href="#gallery">Album ảnh</a></li>
+        <li><a href="#wishes">Gửi lời chúc</a></li>
+      </ul>
+      <!-- Nút 3 gạch ngang Hamburger trên Mobile -->
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Mở menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MENU ĐIỀU HƯỚNG TOÀN MÀN HÌNH CHO MOBILE (OFF-CANVAS DRAWER) -->
+  <div id="mobile-menu-drawer" class="mobile-menu-drawer">
+    <button id="mobile-menu-close" class="mobile-menu-close" aria-label="Đóng menu" onclick="App.closeMobileMenu()">&times;</button>
+    <div class="mobile-menu-content">
+      <ul class="mobile-menu-nav">
+        <li><a href="#story" class="mobile-menu-link" onclick="App.closeMobileMenu()">Câu chuyện</a></li>
+        <li><a href="#venues" class="mobile-menu-link" onclick="App.closeMobileMenu()">Lịch trình</a></li>
+        <li><a href="#gallery" class="mobile-menu-link" onclick="App.closeMobileMenu()">Album</a></li>
+        <li><a href="#wishes" class="mobile-menu-link" onclick="App.closeMobileMenu()">Gửi lời chúc</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       3. HERO BANNER (ẢNH BÌA & THÔNG TIN CHÍNH)
+       ========================================================================= -->
+  <section class="hero-section" style="background-image: url('https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/3d8aabaf-137f-413c-a4b3-1f5c04583b4d.webp');">
+    <div class="hero-overlay"></div>
+    <div class="hero-content reveal-item">
+      <p class="hero-tagline">CHÚNG TÔI SẼ KẾT HÔN</p>
+      <h1 class="hero-couple-name">
+        <span class="hero-bride-name">Bích Duyên</span>
+        <span class="hero-groom-name"><span class="hero-amp">&amp;</span> Việt Tiến</span>
+      </h1>
+      <div class="hero-divider-line"></div>
+      <div class="hero-wedding-date">26.10.2026</div>
+      <p class="hero-location">ĐÀ NẴNG, VIỆT NAM</p>
+      
+      <a href="#calendar" class="hero-scroll-btn">
+        <span>Cuộn xuống</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       4. SAVE THE DATE & LỊCH CƯỚI (CALENDAR)
+       ========================================================================= -->
+  <section id="calendar" class="calendar-section section-padding">
+    <div class="container">
+      <div class="reveal-item">
+        <span class="section-tag">SAVE OUR DATE</span>
+        <h2 class="section-title">Tháng 10 / 2026</h2>
+      </div>
+
+      <div class="calendar-card reveal-item delay-100">
+        <div class="calendar-month-header">Tháng Mười 2026</div>
+        
+        <div class="calendar-grid">
+          <div class="calendar-day-head">T2</div>
+          <div class="calendar-day-head">T3</div>
+          <div class="calendar-day-head">T4</div>
+          <div class="calendar-day-head">T5</div>
+          <div class="calendar-day-head">T6</div>
+          <div class="calendar-day-head">T7</div>
+          <div class="calendar-day-head">CN</div>
+
+          <!-- Tháng 10/2026 bắt đầu từ Thứ 5 (offset 3 ngày trống) -->
+          <div class="calendar-day empty"></div>
+          <div class="calendar-day empty"></div>
+          <div class="calendar-day empty"></div>
+          <div class="calendar-day">1</div>
+          <div class="calendar-day">2</div>
+          <div class="calendar-day">3</div>
+          <div class="calendar-day">4</div>
+
+          <div class="calendar-day">5</div>
+          <div class="calendar-day">6</div>
+          <div class="calendar-day">7</div>
+          <div class="calendar-day">8</div>
+          <div class="calendar-day">9</div>
+          <div class="calendar-day">10</div>
+          <div class="calendar-day">11</div>
+
+          <div class="calendar-day">12</div>
+          <div class="calendar-day">13</div>
+          <div class="calendar-day">14</div>
+          <div class="calendar-day">15</div>
+          <div class="calendar-day">16</div>
+          <div class="calendar-day">17</div>
+          <div class="calendar-day">18</div>
+
+          <div class="calendar-day">19</div>
+          <div class="calendar-day">20</div>
+          <div class="calendar-day">21</div>
+          <div class="calendar-day">22</div>
+          <div class="calendar-day">23</div>
+          <div class="calendar-day">24</div>
+          <div class="calendar-day">25</div>
+
+          <!-- Ngày 26: Ngày cưới trọng đại -->
+          <div class="calendar-day wedding-day">26</div>
+          <div class="calendar-day">27</div>
+          <div class="calendar-day">28</div>
+          <div class="calendar-day">29</div>
+          <div class="calendar-day">30</div>
+          <div class="calendar-day">31</div>
+          <div class="calendar-day empty"></div>
+        </div>
+
+        <button id="btn-add-calendar" class="btn-add-calendar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <line x1="12" y1="14" x2="12" y2="18"></line>
+            <line x1="10" y1="16" x2="14" y2="16"></line>
+          </svg>
+          Thêm vào Google Calendar
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. HÀNH TRÌNH TÌNH YÊU (LOVE STORY)
+       ========================================================================= -->
+  <section id="story" class="story-section section-padding">
+    <div class="container">
+      <div class="reveal-item" style="text-align: center; margin-bottom: 3.5rem;">
+        <span class="section-tag">CÂU CHUYỆN CỦA CHÚNG TÔI</span>
+        <h2 class="section-title">Hành Trình Tình Yêu</h2>
+      </div>
+
+      <div class="story-grid">
+        <div class="story-image-wrap reveal-item">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/1aa0e974-31f6-4df8-9c60-5fa1bb2528dc.webp" alt="Hành trình tình yêu" loading="lazy" />
+          <div class="story-border-decor"></div>
+        </div>
+
+        <div class="timeline-list reveal-item delay-200">
+          <div class="timeline-item">
+            <div class="timeline-year">2021</div>
+            <h3 class="timeline-title">Lần Đầu Gặp Gỡ</h3>
+            <p class="timeline-desc">Định mệnh đã đưa chúng mình gặp nhau vào một ngày thu đẹp trời. Ánh mắt đầu tiên ấy đã trở thành khởi đầu cho một hành trình kỳ diệu.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2023</div>
+            <h3 class="timeline-title">Lời Tỏ Tình</h3>
+            <p class="timeline-desc">Sau những ngày tháng cùng sẻ chia bao niềm vui nỗi buồn, cái nắm tay ngập ngừng dưới ánh hoàng hôn đã gắn kết hai trái tim thành một.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2025</div>
+            <h3 class="timeline-title">Lời Cầu Hôn</h3>
+            <p class="timeline-desc">Khoảnh khắc chiếc nhẫn trao tay cùng lời hứa đồng hành trọn đời. Chúng mình đã sẵn sàng cho chương mới tuyệt vời nhất.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. ĐÔI NÉT VỀ CHÚNG TÔI (COUPLE PROFILE)
+       ========================================================================= -->
+  <section id="couple" class="couple-section section-padding">
+    <div class="container">
+      <div class="reveal-item" style="margin-bottom: 3.5rem;">
+        <span class="section-tag">CÔ DÂU &amp; CHÚ RỂ</span>
+        <h2 class="section-title">Đôi Nét Về Chúng Tôi</h2>
+      </div>
+
+      <div class="couple-grid">
+        <!-- Cô dâu -->
+        <div class="couple-card reveal-item">
+          <div class="couple-avatar-wrap">
+            <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/11132995-0dc0-4c9c-bb67-1a08b431ad40.webp" alt="Cô dâu Bích Duyên" loading="lazy" />
+          </div>
+          <div class="couple-rank">TRƯỞNG NỮ</div>
+          <h3 class="couple-name">Bích Duyên</h3>
+          <div class="couple-parents">
+            <p>Con Ông <strong>Nguyễn Văn A</strong></p>
+            <p>và Bà <strong>Nguyễn Văn B</strong></p>
+          </div>
+        </div>
+
+        <!-- Chú rể -->
+        <div class="couple-card reveal-item delay-200">
+          <div class="couple-avatar-wrap">
+            <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/ec8c5b78-d10f-4727-9dd8-e9ffdabc430d.webp" alt="Chú rể Việt Tiến" loading="lazy" />
+          </div>
+          <div class="couple-rank">ÚT NAM</div>
+          <h3 class="couple-name">Việt Tiến</h3>
+          <div class="couple-parents">
+            <p>Con Ông <strong>Nguyễn Văn A</strong></p>
+            <p>và Bà <strong>Nguyễn Văn B</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Đường kẻ chia đôi với biểu tượng trái tim -->
+      <div class="couple-bottom-divider reveal-item delay-300">
+        <div class="divider-line"></div>
+        <span class="divider-heart">🤎</span>
+        <div class="divider-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. LỊCH TRÌNH SỰ KIỆN & ĐỊA ĐIỂM (VENUES)
+       ========================================================================= -->
+  <section id="venues" class="venues-section section-padding">
+    <div class="container">
+      <div class="reveal-item" style="text-align: center; margin-bottom: 3.5rem;">
+        <span class="section-tag">LỊCH TRÌNH</span>
+        <h2 class="section-title">Ngày Trọng Đại</h2>
+      </div>
+
+      <div class="venues-grid">
+        <!-- Sự kiện 1: Lễ Vu Quy -->
+        <div class="venue-card reveal-item">
+          <div class="venue-image-wrap">
+            <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/2a6888e9-c7b6-4051-9906-6d92bb24845a.webp" alt="Lễ Vu Quy" loading="lazy" />
+            <div class="venue-icon-badge">🏠</div>
+          </div>
+          <div class="venue-content">
+            <h3 class="venue-title">Lễ Vu Quy</h3>
+            <div class="venue-detail-item">
+              <span class="icon">⏰</span>
+              <div>
+                <strong>Thời gian:</strong> 09:00 - 10:30 (26.10.2026)
+              </div>
+            </div>
+            <div class="venue-detail-item">
+              <span class="icon">📍</span>
+              <div>
+                <strong>Địa điểm:</strong> Nhà Gái - Quận Thanh Khê, TP. Đà Nẵng
+                <p class="text-muted" style="font-size: 0.85rem; margin-top: 2px;">Số 12, Đường Phan Đình Phùng, TP. Đà Nẵng</p>
+              </div>
+            </div>
+            <a href="https://maps.app.goo.gl/3LYqUiMHEDbiQ541A" target="_blank" rel="noopener noreferrer" class="btn-map">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                <line x1="8" y1="2" x2="8" y2="18"></line>
+                <line x1="16" y1="6" x2="16" y2="22"></line>
+              </svg>
+              Xem Chỉ Đường Google Maps
+            </a>
+          </div>
+        </div>
+
+        <!-- Sự kiện 2: Tiệc Cưới -->
+        <div class="venue-card reveal-item delay-200">
+          <div class="venue-image-wrap">
+            <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/59cee9b8-26a7-4a11-8021-fafa15c07696.webp" alt="Tiệc Cưới" loading="lazy" />
+            <div class="venue-icon-badge">💒</div>
+          </div>
+          <div class="venue-content">
+            <h3 class="venue-title">Tiệc Cưới</h3>
+            <div class="venue-detail-item">
+              <span class="icon">⏰</span>
+              <div>
+                <strong>Thời gian:</strong> 11:00 - 14:00 (26.10.2026)
+              </div>
+            </div>
+            <div class="venue-detail-item">
+              <span class="icon">📍</span>
+              <div>
+                <strong>Địa điểm:</strong> Trung Tâm Tiệc Cưới White Palace
+                <p class="text-muted" style="font-size: 0.85rem; margin-top: 2px;">Trung Tâm Tiệc Cưới White Palace, TP. Đà Nẵng</p>
+              </div>
+            </div>
+            <a href="https://maps.app.goo.gl/3LYqUiMHEDbiQ541A" target="_blank" rel="noopener noreferrer" class="btn-map">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                <line x1="8" y1="2" x2="8" y2="18"></line>
+                <line x1="16" y1="6" x2="16" y2="22"></line>
+              </svg>
+              Xem Chỉ Đường Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dress Code -->
+      <div class="dress-code-box reveal-item">
+        <span class="section-tag">DRESS CODE</span>
+        <h4 style="font-family: var(--font-serif); font-size: 1.25rem; margin-bottom: 0.5rem;">Trang Phục Gợi Ý</h4>
+        <p class="text-secondary" style="font-size: 0.9rem;">Khách mời vui lòng mặc trang phục theo tông màu để bức ảnh kỷ niệm thêm phần hài hòa.</p>
+        <div class="dress-colors-wrap">
+          <div class="dress-color-item">
+            <div class="color-circle bordered" style="background-color: #ffffff;"></div>
+            <span class="color-label">Trắng</span>
+          </div>
+          <div class="dress-color-item">
+            <div class="color-circle" style="background-color: #77DD77;"></div>
+            <span class="color-label">Xanh Sage</span>
+          </div>
+          <div class="dress-color-item">
+            <div class="color-circle" style="background-color: #f3e8dc;"></div>
+            <span class="color-label">Be Nhạt</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       8. ALBUM ẢNH CƯỚI (LOOKBOOK EDITORIAL GALLERY & LIGHTBOX)
+       ========================================================================= -->
+  <section id="gallery" class="gallery-section section-padding">
+    <div class="container">
+      <div class="reveal-item" style="margin-bottom: 2rem;">
+        <span class="section-tag">KHOẢNH KHẮC NGỌT NGÀO</span>
+        <h2 class="section-title">Album Ảnh Cưới</h2>
+      </div>
+
+      <!-- KHUNG ẢNH LỚN TỰ CHUYỂN CẢNH (HERO LANDSCAPE CAROUSEL) -->
+      <div class="gallery-hero-carousel reveal-item" onclick="GalleryController.openLightbox(9)" title="Bấm để xem ảnh phóng to toàn màn hình">
+        <div class="carousel-slide active">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/d10d2ba1-9a7c-470b-b3d0-e5f4afde3751.webp" alt="Ảnh cưới ngoại cảnh" />
+          <div class="carousel-overlay"></div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/cd8e72a2-c4cd-4679-aa86-7681c955f9aa.webp" alt="Hoàng hôn lãng mạn" />
+          <div class="carousel-overlay"></div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/e6c8b06b-c5ac-4c79-848c-65e15752687c.webp" alt="Chặng đường chung bước" />
+          <div class="carousel-overlay"></div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/c9082def-53f1-41e6-b99d-10c5072da081.webp" alt="Biển xanh và em" />
+          <div class="carousel-overlay"></div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/4c949d23-d6c1-4be6-9759-ad02928d5733.webp" alt="Ánh nắng ban mai" />
+          <div class="carousel-overlay"></div>
+        </div>
+
+        <div id="carousel-dots" class="carousel-dots"></div>
+        <div class="carousel-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <line x1="11" y1="8" x2="11" y2="14"></line>
+            <line x1="8" y1="11" x2="14" y2="11"></line>
+          </svg>
+          <span>Xem Toàn Màn Hình</span>
+        </div>
+      </div>
+
+      <!-- LƯỚI ẢNH CHÂN DUNG NGHỆ THUẬT (PORTRAIT GRID) -->
+      <div id="gallery-grid" class="gallery-grid">
+        <div class="gallery-item reveal-item is-revealed" onclick="GalleryController.openLightbox(0)">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/6c92178d-89a4-4346-8206-14c54e377317.webp" alt="Nụ cười rạng rỡ" loading="lazy" />
+          <div class="gallery-item-overlay"><div class="gallery-zoom-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg></div></div>
+        </div>
+        <div class="gallery-item reveal-item is-revealed" onclick="GalleryController.openLightbox(1)">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/3d8aabaf-137f-413c-a4b3-1f5c04583b4d.webp" alt="Ánh mắt trao nhau" loading="lazy" />
+          <div class="gallery-item-overlay"><div class="gallery-zoom-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg></div></div>
+        </div>
+        <div class="gallery-item reveal-item is-revealed" onclick="GalleryController.openLightbox(2)">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/746c8e52-9032-4bb6-ab94-2b970b4f19ef.webp" alt="Tình yêu thuần khiết" loading="lazy" />
+          <div class="gallery-item-overlay"><div class="gallery-zoom-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg></div></div>
+        </div>
+        <div class="gallery-item reveal-item is-revealed" onclick="GalleryController.openLightbox(3)">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/7356871e-ead5-4dbf-85de-e16c0648b1bd.webp" alt="Bên nhau bình yên" loading="lazy" />
+          <div class="gallery-item-overlay"><div class="gallery-zoom-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg></div></div>
+        </div>
+        <div class="gallery-item reveal-item is-revealed" onclick="GalleryController.openLightbox(4)">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/c569a3ac-2578-4646-8a7b-948db137fb5e.webp" alt="Cùng nhìn về tương lai" loading="lazy" />
+          <div class="gallery-item-overlay"><div class="gallery-zoom-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg></div></div>
+        </div>
+        <div class="gallery-item reveal-item is-revealed" onclick="GalleryController.openLightbox(5)">
+          <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/89b05199-d844-4185-b46d-6f1e12dd1f8c.webp" alt="Khoảnh khắc hạnh phúc" loading="lazy" />
+          <div class="gallery-item-overlay"><div class="gallery-zoom-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg></div></div>
+        </div>
+      </div>
+
+      <!-- =========================================================================
+           BỐ CỤC TẠP CHÍ FOREVER LOVE (MAGAZINE EDITORIAL COLLAGE)
+           ========================================================================= -->
+      <div class="magazine-collage-wrap reveal-item">
+        <div class="magazine-grid-layout">
+          <!-- Cột trái: FOREVER LOVE + 3 ảnh nghệ thuật + Trích dẫn -->
+          <div class="magazine-left-col">
+            <div class="magazine-subgrid">
+              <!-- Nhánh 1: Title + 1 ảnh dọc -->
+              <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+                <div class="forever-love-header">
+                  <h3 class="forever-love-title">FOREVER LOVE</h3>
+                </div>
+                <div class="magazine-photo-tall" onclick="GalleryController.openLightbox(14)" title="Phóng to ảnh">
+                  <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/d73ec6d3-6e5d-4891-aa50-37976abe5ea8.webp" alt="Forever Love Paris" loading="lazy" />
+                </div>
+              </div>
+
+              <!-- Nhánh 2: 2 ảnh vuông xếp chồng -->
+              <div class="magazine-stacked-col">
+                <div class="magazine-photo-stacked" onclick="GalleryController.openLightbox(15)" title="Phóng to ảnh">
+                  <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/260f6b0d-32b8-4134-a166-0a0058c94998.webp" alt="Lãng mạn vườn hoa" loading="lazy" />
+                </div>
+                <div class="magazine-photo-stacked" onclick="GalleryController.openLightbox(16)" title="Phóng to ảnh">
+                  <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/29fe23c3-1f83-4097-a733-f2fcdd8f79dd.webp" alt="Khoảnh khắc ngọt ngào" loading="lazy" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Câu trích dẫn tình yêu -->
+            <p class="forever-love-quote">"It only takes a second to say I love you, but it will take a lifetime to show you how much"</p>
+          </div>
+
+          <!-- Cột phải: 1 ảnh lớn tháp Eiffel toàn cảnh -->
+          <div class="magazine-hero-photo" onclick="GalleryController.openLightbox(17)" title="Phóng to ảnh">
+            <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/075033e1-2cc0-4eb6-8062-ea2c50e83b89.webp" alt="Eiffel Tower Wedding Portrait" loading="lazy" />
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================================
+           KHUNG POSTER TẠP CHÍ (LOVE WHISPERS THROUGH THE LEAVES)
+           ========================================================================= -->
+      <div class="magazine-card-poster reveal-item delay-100">
+        <div class="poster-photos-grid">
+          <div class="poster-photo-item" onclick="GalleryController.openLightbox(6)">
+            <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/a89a1ff3-91c3-40d8-8889-02b46d34d6f5.webp" alt="Love Whispers 1" loading="lazy" />
+          </div>
+          <div class="poster-photo-item" onclick="GalleryController.openLightbox(7)">
+            <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/95af3d2a-3e20-4f85-b2a4-77f936d68e9f.webp" alt="Love Whispers 2" loading="lazy" />
+          </div>
+        </div>
+        <div class="love-whispers-text">
+          <h4 class="love-whispers-title">LOVE WHISPERS<br/>THROUGH THE LEAVES</h4>
+          <p class="love-whispers-sub">In the quiet of the garden, love whispers through the leaves</p>
+        </div>
+      </div>
+
+      <!-- NÚT XEM TẤT CẢ ALBUM ẢNH CƯỚI -->
+      <div class="gallery-view-all-wrap reveal-item delay-100">
+        <button type="button" id="btn-view-all-gallery" class="btn-view-all-gallery" onclick="GalleryController.openViewAllModal()" title="Xem trọn bộ album ảnh cưới">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <span>XEM TẤT CẢ (18 ẢNH)</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL XEM TẤT CẢ ẢNH CƯỚI (ALL PHOTOS GRID MODAL) -->
+  <div id="gallery-all-modal" class="gallery-all-modal">
+    <div class="gallery-all-header">
+      <div class="gallery-all-title">Album Ảnh Cưới (18 Ảnh)</div>
+      <button id="gallery-all-close" class="gallery-all-close" onclick="GalleryController.closeViewAllModal()" aria-label="Đóng">&times;</button>
+    </div>
+    <div class="gallery-all-body">
+      <div id="gallery-all-grid" class="gallery-all-grid">
+        <!-- Render động 18 ảnh cưới qua JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TRÌNH XEM ẢNH TOÀN MÀN HÌNH (FULLSCREEN LIGHTBOX MODAL) -->
+  <div id="lightbox-modal" class="lightbox-modal">
+    <div id="lightbox-counter" class="lightbox-counter">( 1 / 18 )</div>
+    <button id="lightbox-close" class="lightbox-btn lightbox-close" aria-label="Đóng">&times;</button>
+    <button id="lightbox-prev" class="lightbox-btn lightbox-prev" aria-label="Ảnh trước">&#10094;</button>
+    <button id="lightbox-next" class="lightbox-btn lightbox-next" aria-label="Ảnh sau">&#10095;</button>
+    
+    <div class="lightbox-img-wrap">
+      <img id="lightbox-img" src="" alt="Phóng to ảnh cưới" />
+      <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       10. NHẮN GỬI YÊU THƯƠNG & XÁC NHẬN THAM DỰ (WISHES & RSVP)
+       ========================================================================= -->
+  <section id="wishes" class="wishes-section section-padding">
+    <div class="container">
+      <div class="wishes-header reveal-item">
+        <h2 class="section-title">Nhắn Gửi Yêu Thương</h2>
+        <p class="wishes-subtitle">Mỗi lời chúc của Quý khách đều là niềm hạnh phúc cho gia đình chúng tôi.</p>
+      </div>
+
+      <!-- Khung Form Gửi Lời Chúc Chuẩn Mẫu -->
+      <div class="wishes-unified-card reveal-item">
+        <form id="wish-form">
+          <!-- 1. Lời chúc kèm nút chèn biểu tượng cảm xúc Emoji -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="wish-message" class="form-label" style="margin-bottom: 0;">Lời Chúc</label>
+              <button type="button" id="emoji-picker-btn" class="emoji-toggle-btn" title="Chọn biểu tượng cảm xúc">
+                <span>😊 Chèn icon</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+            </div>
+            
+            <div class="textarea-relative-wrap">
+              <textarea id="wish-message" placeholder="Viết vài lời chúc thật dễ thương cho cô dâu, chú rể..." required></textarea>
+            </div>
+
+            <!-- Khay icon Emoji trượt mở thông minh (100% không tràn mép, chuẩn mọi thiết bị) -->
+            <div id="emoji-popover" class="emoji-drawer">
+              <div class="emoji-drawer-header">
+                <span class="emoji-drawer-title">Biểu tượng chúc mừng cưới</span>
+                <span class="emoji-drawer-hint">Chạm để chèn nhanh</span>
+              </div>
+              <div class="emoji-grid">
+                <span class="emoji-item" title="Trái tim vàng">💛</span>
+                <span class="emoji-item" title="Bó hoa">💐</span>
+                <span class="emoji-item" title="Nâng ly chúc mừng">🥂</span>
+                <span class="emoji-item" title="Pháo giấy">🎉</span>
+                <span class="emoji-item" title="Nhẫn cưới">💍</span>
+                <span class="emoji-item" title="Cô dâu">👰</span>
+                <span class="emoji-item" title="Chú rể">🤵</span>
+                <span class="emoji-item" title="Lấp lánh">✨</span>
+                <span class="emoji-item" title="Thư tình">💌</span>
+                <span class="emoji-item" title="Yêu thương">🥰</span>
+                <span class="emoji-item" title="Vỗ tay">👏</span>
+                <span class="emoji-item" title="Hoa hồng">🌹</span>
+                <span class="emoji-item" title="Trái tim lấp lánh">💖</span>
+                <span class="emoji-item" title="Pháo hoa">🎊</span>
+                <span class="emoji-item" title="Ăn mừng">🥳</span>
+                <span class="emoji-item" title="Cặp đôi">💑</span>
+                <span class="emoji-item" title="Hạnh phúc">❤️</span>
+                <span class="emoji-item" title="Ngọt ngào">😘</span>
+                <span class="emoji-item" title="Sâm panh">🍾</span>
+                <span class="emoji-item" title="Tỏa sáng">🌟</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Tên của bạn -->
+          <div class="form-group">
+            <label for="wish-name" class="form-label">Tên của bạn</label>
+            <input type="text" id="wish-name" class="form-input" placeholder="Nguyễn Văn A" required />
+          </div>
+
+          <!-- 3. Biệt danh -->
+          <div class="form-group">
+            <label for="wish-relation" class="form-label">Biệt danh</label>
+            <input type="text" id="wish-relation" class="form-input" placeholder="VD: Bạn cấp 3 của cô dâu, Bạn đồng nghiệp của chú rể ..." />
+          </div>
+
+          <!-- 4. Row: Bạn có thể tham dự không? & Số người tham dự -->
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label for="wish-attending" class="form-label">Bạn có thể tham dự không?</label>
+              <select id="wish-attending" class="custom-select-styled">
+                <option value="" disabled>-- Chọn câu trả lời --</option>
+                <option value="yes" selected>✨ Chắc chắn rồi, mình sẽ đến</option>
+                <option value="maybe">🤍 Mình sẽ cố gắng sắp xếp</option>
+                <option value="no">💌 Rất tiếc mình không thể tham dự</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="wish-guests" class="form-label">Số người tham dự</label>
+              <select id="wish-guests" class="custom-select-styled">
+                <option value="" disabled>-- Số người --</option>
+                <option value="1" selected>1 người</option>
+                <option value="2">2 người</option>
+                <option value="3">3 người</option>
+                <option value="4+">4+ người</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 5. Bạn là khách của ai? (Bộ 3 ảnh Cô dâu, Chú rể, Cả hai) -->
+          <div class="guest-side-photo-group">
+            <div class="guest-side-card" data-value="Cô dâu">
+              <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/11132995-0dc0-4c9c-bb67-1a08b431ad40.webp" alt="Cô dâu Bích Duyên" />
+              <div class="guest-side-overlay"></div>
+              <span class="guest-side-label">Cô dâu</span>
+            </div>
+            <div class="guest-side-card" data-value="Chú rể">
+              <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/ec8c5b78-d10f-4727-9dd8-e9ffdabc430d.webp" alt="Chú rể Việt Tiến" />
+              <div class="guest-side-overlay"></div>
+              <span class="guest-side-label">Chú rể</span>
+            </div>
+            <div class="guest-side-card active" data-value="Cả hai">
+              <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/3d8aabaf-137f-413c-a4b3-1f5c04583b4d.webp" alt="Cả hai" />
+              <div class="guest-side-overlay"></div>
+              <span class="guest-side-label">Cả hai</span>
+            </div>
+            <input type="hidden" id="wish-side" value="Cả hai" />
+          </div>
+
+          <!-- Nút Gửi Lời Chúc -->
+          <button type="submit" class="btn-submit-wishes">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span>GỬI LỜI CHÚC</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Danh sách lời chúc từ khách quý (Wishes Feed) -->
+      <div class="wishes-feed-wrapper reveal-item delay-100">
+        <h3 class="wishes-feed-title">Lời Chúc Từ Khách Quý</h3>
+        <div id="wishes-feed" class="wishes-feed">
+          <div class="wish-card">
+            <div class="wish-header">
+              <div class="wish-author-info">
+                <div class="wish-avatar">M</div>
+                <div>
+                  <div class="wish-author-name">Minh Hiếu</div>
+                  <div class="wish-relation">Bạn thân • Cả hai</div>
+                </div>
+              </div>
+              <div class="wish-time">20:15 - 23/08/2026</div>
+            </div>
+            <div class="wish-text">Chúc hai bạn trăm năm hạnh phúc, đầu bạc răng long, sớm sinh quý tử nhé! Rất háo hức chờ đến ngày cưới!</div>
+            <div class="wish-actions">
+              <button class="btn-like-wish liked">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span class="like-count">12</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="wish-card">
+            <div class="wish-header">
+              <div class="wish-author-info">
+                <div class="wish-avatar">T</div>
+                <div>
+                  <div class="wish-author-name">Thanh Trúc</div>
+                  <div class="wish-relation">Bạn cô dâu • Cô dâu</div>
+                </div>
+              </div>
+              <div class="wish-time">18:30 - 23/08/2026</div>
+            </div>
+            <div class="wish-text">Chúc mừng cô dâu xinh đẹp nhất trần đời! Chúc hai vợ chồng luôn ngọt ngào và hạnh phúc như ngày đầu tiên!</div>
+            <div class="wish-actions">
+              <button class="btn-like-wish">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span class="like-count">8</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="wish-card">
+            <div class="wish-header">
+              <div class="wish-author-info">
+                <div class="wish-avatar">T</div>
+                <div>
+                  <div class="wish-author-name">Tuấn Anh</div>
+                  <div class="wish-relation">Đồng nghiệp chú rể • Chú rể</div>
+                </div>
+              </div>
+              <div class="wish-time">15:45 - 23/08/2026</div>
+            </div>
+            <div class="wish-text">Chúc mừng người anh em đã tìm được một nửa hoàn hảo. Chúc hai bạn một đời an yên và thịnh vượng!</div>
+            <div class="wish-actions">
+              <button class="btn-like-wish">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span class="like-count">15</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       12. HỘP MỪNG CƯỚI (LUCKY MONEY / GIFT BOX)
+       ========================================================================= -->
+  <section class="gift-section section-padding">
+    <div class="container">
+      <div class="reveal-item">
+        <span class="section-tag">MỪNG CƯỚI</span>
+        <h2 class="section-title">Hộp Mừng Cưới</h2>
+        <p class="text-secondary" style="max-width: 500px; margin: 0 auto 2rem;">Nếu không thể đến tham dự trực tiếp, bạn có thể gửi quà mừng chúc phúc cho cô dâu chú rể tại đây.</p>
+      </div>
+
+      <button id="gift-toggle-btn" class="gift-toggle-btn reveal-item">
+        <span class="gift-box-icon">🎁</span>
+        <span style="font-weight: 600; font-size: 1.1rem; color: var(--color-text-main);">Mở Hộp Mừng Cưới</span>
+      </button>
+
+      <div id="gift-container" class="gift-container">
+        <!-- Tabs chọn cô dâu / chú rể -->
+        <div class="gift-tabs">
+          <button class="gift-tab-btn active" data-side="bride">Cô Dâu (Bích Duyên)</button>
+          <button class="gift-tab-btn" data-side="groom">Chú Rể (Việt Tiến)</button>
+        </div>
+
+        <!-- Thông tin ngân hàng Cô dâu -->
+        <div class="bank-card" data-side="bride">
+          <div class="bank-qr-wrap">
+            <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/e2864c9b-8f31-433d-bd5e-6c7a38161409.webp" alt="Mã QR Cô Dâu" loading="lazy" />
+          </div>
+          <div class="bank-info">
+            <div class="bank-name-tag">Vietcombank (VCB)</div>
+            <div class="bank-account-name">DO THI BICH DUYEN</div>
+            <div class="bank-account-num-box">
+              <span class="bank-account-num">1028777666</span>
+              <button class="btn-copy" data-account="1028777666">Sao chép</button>
+            </div>
+            <p class="text-muted" style="font-size: 0.85rem;">Quét mã QR bằng ứng dụng ngân hàng hoặc ví điện tử để chuyển khoản nhanh.</p>
+          </div>
+        </div>
+
+        <!-- Thông tin ngân hàng Chú rể -->
+        <div class="bank-card" data-side="groom" style="display: none;">
+          <div class="bank-qr-wrap">
+            <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/bdb74793-d395-4802-977b-70ba0a02f935.webp" alt="Mã QR Chú Rể" loading="lazy" />
+          </div>
+          <div class="bank-info">
+            <div class="bank-name-tag">Vietcombank (VCB)</div>
+            <div class="bank-account-name">NGUYEN VIET TIEN</div>
+            <div class="bank-account-num-box">
+              <span class="bank-account-num">1018999888</span>
+              <button class="btn-copy" data-account="1018999888">Sao chép</button>
+            </div>
+            <p class="text-muted" style="font-size: 0.85rem;">Quét mã QR bằng ứng dụng ngân hàng hoặc ví điện tử để chuyển khoản nhanh.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       13. ĐẾM NGƯỢC THỜI GIAN (LIVE COUNTDOWN TIMER)
+       ========================================================================= -->
+  <section class="countdown-section" style="background-image: url('https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/c776dd26-133b-4431-81cc-71911bdb1912.webp');">
+    <div class="countdown-overlay"></div>
+    <div class="countdown-content reveal-item">
+      <p class="section-tag" style="color: #f7e199;">ĐẾM NGƯỢC NGÀY CHUNG ĐÔI</p>
+      <h2 class="section-title" style="color: #ffffff;">Thời Gian Còn Lại</h2>
+
+      <div class="countdown-grid">
+        <div class="countdown-item">
+          <div id="countdown-days" class="countdown-num">00</div>
+          <div class="countdown-label">Ngày</div>
+        </div>
+        <div class="countdown-item">
+          <div id="countdown-hours" class="countdown-num">00</div>
+          <div class="countdown-label">Giờ</div>
+        </div>
+        <div class="countdown-item">
+          <div id="countdown-minutes" class="countdown-num">00</div>
+          <div class="countdown-label">Phút</div>
+        </div>
+        <div class="countdown-item">
+          <div id="countdown-seconds" class="countdown-num">00</div>
+          <div class="countdown-label">Giây</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       14. LỜI CẢM ƠN & CHÂN TRANG (THANK YOU & FOOTER)
+       ========================================================================= -->
+  <section class="thankyou-section">
+    <div class="container reveal-item">
+      <div class="thankyou-avatar">
+        <img src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/b43808d8-4642-4c87-9133-7e29991e0197.webp" alt="Bích Duyên & Việt Tiến" loading="lazy" />
+      </div>
+      <p class="thankyou-tag">THANK YOU</p>
+      <h2 class="thankyou-title">Bích Duyên &amp; Việt Tiến<br />xin chân thành cảm ơn và hẹn gặp Quý khách trong ngày trọng đại!</h2>
+      <div class="thankyou-hearts">💛 💛 💛</div>
+      
+      <footer class="site-footer">
+        <p>© 2026 Bích Duyên &amp; Việt Tiến Wedding. All rights reserved.</p>
+      </footer>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       15. NÚT PHÁT NHẠC NỔI & GỬI LỜI CHÚC (FLOATING ACTIONS)
+       ========================================================================= -->
+  <div class="floating-actions-group">
+    <!-- Nút Gửi Lời Chúc nhanh kèm bubble pill -->
+    <a href="#wishes" class="floating-quick-wish" title="Gửi lời chúc mừng đám cưới">
+      <span class="quick-wish-pill">Gửi lời chúc 💌</span>
+      <div class="quick-wish-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+      </div>
+    </a>
+
+    <!-- Nút Đĩa than phát nhạc -->
+    <div id="floating-music-btn" class="floating-music-btn" title="Phát / Tạm dừng nhạc cưới">
+      <div id="vinyl-disc" class="vinyl-disc animate-spin-slow animate-spin-paused">
+        <div class="vinyl-center"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu chọn bài hát popup -->
+  <div id="music-drawer" class="music-drawer">
+    <div class="music-drawer-header">
+      <span class="music-drawer-title">🎵 Danh Sách Nhạc Cưới</span>
+    </div>
+    <ul id="playlist-items" class="playlist-list">
+      <li class="playlist-item active" onclick="MusicPlayer.changeTrack(0); MusicPlayer.play();">
+        <span>1. Lễ đường</span>
+        <span class="text-muted" style="font-size: 0.75rem;">Hồ Phi Nal</span>
+      </li>
+      <li class="playlist-item" onclick="MusicPlayer.changeTrack(1); MusicPlayer.play();">
+        <span>2. Ta là của nhau</span>
+        <span class="text-muted" style="font-size: 0.75rem;">Đông Nhi ft. Ông Cao Thắng</span>
+      </li>
+      <li class="playlist-item" onclick="MusicPlayer.changeTrack(2); MusicPlayer.play();">
+        <span>3. Một đời</span>
+        <span class="text-muted" style="font-size: 0.75rem;">14 Casper & Bon</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Nút cuộn nhanh lên đầu trang -->
+  <button id="btn-back-to-top" class="btn-back-to-top" aria-label="Cuộn lên đầu trang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- JAVASCRIPT LIBRARIES & APP MODULES -->
+  <script src="js/data.js"></script>
+  <script src="js/envelope.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/petals.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/rsvp.js"></script>
+  <script src="js/wishes.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
