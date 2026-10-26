@@ -18,21 +18,27 @@ const WEDDING_DATA = {
   couple: {
     title: "Đôi Nét Về Chúng Tôi",
     groom: {
+      holyName: "Antôn",
+      fullName: "Antôn Lê Việt Tiến",
       name: "Việt Tiến",
       shortName: "Tiến",
-      rank: "Út nam",
+      rank: "Thứ Nam",
       image: "image/wedding-01.jpg",
-      father: "Nguyễn Văn A",
-      mother: "Nguyễn Văn B",
-      bio: "Một người luôn hướng về gia đình, đam mê công nghệ và dành trọn tình yêu thương cho người bạn đời."
+      father: "Phêrô Lê Quốc Việt",
+      mother: "Maria Lê Thị Bích Ngọc",
+      address: "281 Quốc Lộ 57B, Lộc Thuận, Vĩnh Long",
+      bio: "Một người luôn hướng về gia đình, trách nhiệm và dành trọn tình yêu thương cho người bạn đời."
     },
     bride: {
+      holyName: "Isave",
+      fullName: "Isave Nguyễn Thị Bích Duyên",
       name: "Bích Duyên",
       shortName: "Duyên",
-      rank: "Trưởng nữ",
+      rank: "Trưởng Nữ",
       image: "image/wedding-02.jpg",
-      father: "Nguyễn Văn A",
-      mother: "Nguyễn Văn B",
+      father: "Phêrô Nguyễn Tri Quân",
+      mother: "Phan Thị Mỹ",
+      address: "Tổ 2, Khu Phố 3, Long Thủy, Phước Long, Đồng Nai",
       bio: "Cô gái dịu dàng, yêu thương mọi người xung quanh và luôn là điểm tựa bình yên cho anh."
     }
   },
@@ -70,9 +76,9 @@ const WEDDING_DATA = {
       date: "18.12.2026",
       icon: "🏠",
       image: "image/wedding-04.jpg",
-      area: "Nhà Gái - Phước Long, Đồng Nai",
-      address: "Phước Long, Đồng Nai",
-      mapUrl: "https://maps.google.com/?q=Ph%C6%B0%E1%BB%9Bc+Long%2C+%C4%90%E1%BB%93ng+Nai"
+      area: "Tư gia Nhà Gái",
+      address: "Tổ 2, Khu Phố 3, Long Thủy, Phước Long, Đồng Nai",
+      mapUrl: "https://maps.google.com/?q=Long+Th%E1%BB%A7y%2C+Ph%C6%B0%E1%BB%9Bc+Long%2C+%C4%90%E1%BB%93ng+Nai"
     },
     {
       id: "tiec-cuoi",
