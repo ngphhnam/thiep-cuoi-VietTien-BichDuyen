@@ -51,10 +51,10 @@ const App = (() => {
   // Tạo liên kết thêm vào Google Calendar
   const createGoogleCalendarLink = () => {
     const title = encodeURIComponent("Đám Cưới Bích Duyên & Việt Tiến");
-    const details = encodeURIComponent("Trân trọng kính mời bạn đến tham dự lễ thành hôn của Bích Duyên & Việt Tiến tại TP. Đà Nẵng.");
-    const location = encodeURIComponent("Trung Tâm Tiệc Cưới White Palace, TP. Đà Nẵng");
-    // Format YYYYMMDDTHHmmssZ (26/10/2026 09:00:00 UTC+7 -> 02:00:00Z)
-    const dates = "20261026T020000Z/20261026T070000Z";
+    const details = encodeURIComponent("Trân trọng kính mời bạn đến tham dự lễ thành hôn của Bích Duyên & Việt Tiến tại Phước Long, Đồng Nai.");
+    const location = encodeURIComponent("Phước Long, Đồng Nai");
+    // Format YYYYMMDDTHHmmssZ (18/12/2026 09:00:00 UTC+7 -> 02:00:00Z)
+    const dates = "20261218T020000Z/20261218T070000Z";
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
   };
 

@@ -35,28 +35,33 @@ Source code thiệp cưới điện tử trực tuyến cao cấp, sao chép tr�
    - Nút 1-chạm sao chép số tài khoản kèm thông báo Toast.
 
 8. **Đồng Hồ Đếm Ngược (Live Countdown Timer)**:
-   - Đếm ngược Ngày - Giờ - Phút - Giây theo thời gian thực đến thời điểm 26/10/2026.
+   - Đếm ngược Ngày - Giờ - Phút - Giây theo thời gian thực đến thời điểm 18/12/2026 tại Phước Long, Đồng Nai.
 
 ---
 
-## 📁 Cấu Trúc Thư Mục
+## 📁 2 Phiên Bản Giao Diện & Cấu Trúc Thư Mục
+
+1. **Phiên bản 1 - Mẫu Cổ Điển Hoàng Gia (Sunswedding)**:
+   - File: [`index.html`](file:///d:/invitation/index.html)
+   - Tham số khách mời: `index.html?guest=bạn%20Minh%20Hiếu`
+2. **Phiên bản 2 - Mẫu Minimalism Đỏ Đậm (Chung Đôi)**:
+   - File: [`minimalism-do-dam.html`](file:///d:/invitation/minimalism-do-dam.html) (hoặc [`minimalism.html`](file:///d:/invitation/minimalism.html))
+   - Tham số khách mời: `minimalism-do-dam.html?guest=bạn%20Minh%20Hiếu`
 
 ```text
 d:\invitation\
-├── index.html              # Toàn bộ cấu trúc HTML5 và nội dung thiệp
+├── index.html              # Phiên bản 1: Mẫu Cổ Điển Hoàng Gia (Sunswedding)
+├── minimalism-do-dam.html  # Phiên bản 2: Mẫu Minimalism Đỏ Đậm (Chung Đôi)
+├── minimalism.html         # Đường dẫn phụ cho Mẫu Minimalism Đỏ Đậm
+├── image\                  # Toàn bộ 16 ảnh cưới (wedding-01..16.jpg) và QR ngân hàng
 ├── css\
-│   ├── style.css           # Giao diện chính, màu sắc, font chữ và responsive
-│   └── animations.css      # Hoạt ảnh mở thư 3D, đĩa quay, nhịp tim, lấp lánh
+│   ├── style.css           # CSS mẫu cổ điển
+│   ├── animations.css      # Hoạt ảnh mở thư 3D
+│   └── minimalism.css      # CSS mẫu Minimalism Đỏ Đậm sang trọng
 ├── js\
-│   ├── data.js             # Toàn bộ dữ liệu cấu hình (tên, ngày, ảnh, bài hát, ngân hàng)
-│   ├── envelope.js         # Xử lý mở bao thư 3D và đọc tham số ?guest=...
-│   ├── music.js            # Trình phát nhạc nền và playlist
-│   ├── petals.js           # Hiệu ứng canvas cánh hoa rơi
-│   ├── gallery.js          # Bộ lọc album ảnh và Lightbox
-│   ├── countdown.js        # Đồng hồ đếm ngược thời gian thực
-│   ├── rsvp.js             # Form xác nhận tham dự và pháo hoa
-│   ├── wishes.js           # Quản lý sổ lưu bút và gửi lời chúc
-│   └── app.js              # Khởi tạo và liên kết toàn bộ ứng dụng
+│   ├── data.js             # Cấu hình dữ liệu chung (ngày cưới 18/12, Phước Long Đồng Nai, ảnh, ngân hàng)
+│   ├── minimalism.js       # Script điều khiển cho mẫu Minimalism Đỏ Đậm
+│   ├── envelope.js, music.js, petals.js, gallery.js, countdown.js, rsvp.js, wishes.js, app.js
 └── README.md               # Hướng dẫn chi tiết
 ```
 
@@ -93,7 +98,7 @@ npx live-server d:\invitation
 Mọi thông tin về cặp đôi, ngày cưới, ảnh, bài hát, tài khoản ngân hàng được quy tụ gọn gàng trong tệp **`js/data.js`**:
 
 - **Đổi tên cô dâu & chú rể**: Sửa mục `couple.groom.name` và `couple.bride.name`.
-- **Đổi ngày giờ cưới**: Sửa `weddingDate: "2026-10-26T09:00:00"`.
+- **Đổi ngày giờ cưới**: Sửa `weddingDate: "2026-12-18T09:00:00"`.
 - **Đổi tài khoản ngân hàng & mã QR**: Sửa mục `bankAccounts.groom` và `bankAccounts.bride`.
 - **Thêm/bớt bài hát cưới**: Thêm đường link mp3 vào danh sách `playlist`.
-- **Thay đổi ảnh cưới**: Cập nhật URL ảnh trong danh mục `gallery.items`.
+- **Thay đổi ảnh cưới**: Cập nhật ảnh trong thư mục `image/` (`wedding-01.jpg` đến `wedding-16.jpg`).

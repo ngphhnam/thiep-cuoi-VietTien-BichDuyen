@@ -7,7 +7,7 @@ const CountdownTimer = (() => {
   let timerInterval = null;
 
   const init = () => {
-    const targetDateStr = (window.WEDDING_DATA && window.WEDDING_DATA.weddingDate) || "2026-10-26T09:00:00";
+    const targetDateStr = (window.WEDDING_DATA && window.WEDDING_DATA.weddingDate) || "2026-12-18T09:00:00";
     const targetDate = new Date(targetDateStr).getTime();
 
     const daysEl = document.getElementById('countdown-days');

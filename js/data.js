@@ -9,10 +9,10 @@ const WEDDING_DATA = {
   theme: "classic",
   
   // Thông tin ngày cưới
-  weddingDate: "2026-10-26T09:00:00",
-  displayDate: "26 . 10 . 2026",
-  displayDateFull: "Thứ Hai, ngày 26 tháng 10 năm 2026",
-  city: "Đà Nẵng, Việt Nam",
+  weddingDate: "2026-12-18T09:00:00",
+  displayDate: "18 . 12 . 2026",
+  displayDateFull: "Thứ Sáu, ngày 18 tháng 12 năm 2026",
+  city: "Phước Long, Đồng Nai",
 
   // Thông tin cặp đôi
   couple: {
@@ -21,7 +21,7 @@ const WEDDING_DATA = {
       name: "Việt Tiến",
       shortName: "Tiến",
       rank: "Út nam",
-      image: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/ec8c5b78-d10f-4727-9dd8-e9ffdabc430d.webp",
+      image: "image/wedding-01.jpg",
       father: "Nguyễn Văn A",
       mother: "Nguyễn Văn B",
       bio: "Một người luôn hướng về gia đình, đam mê công nghệ và dành trọn tình yêu thương cho người bạn đời."
@@ -30,7 +30,7 @@ const WEDDING_DATA = {
       name: "Bích Duyên",
       shortName: "Duyên",
       rank: "Trưởng nữ",
-      image: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/11132995-0dc0-4c9c-bb67-1a08b431ad40.webp",
+      image: "image/wedding-02.jpg",
       father: "Nguyễn Văn A",
       mother: "Nguyễn Văn B",
       bio: "Cô gái dịu dàng, yêu thương mọi người xung quanh và luôn là điểm tựa bình yên cho anh."
@@ -41,7 +41,7 @@ const WEDDING_DATA = {
   story: {
     title: "Hành Trình Tình Yêu",
     subtitle: "Câu chuyện của chúng tôi",
-    coverImage: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/1aa0e974-31f6-4df8-9c60-5fa1bb2528dc.webp",
+    coverImage: "image/wedding-03.jpg",
     milestones: [
       {
         year: "2021",
@@ -67,23 +67,23 @@ const WEDDING_DATA = {
       id: "vu-quy",
       title: "Lễ Vu Quy",
       time: "09:00 - 10:30",
-      date: "26.10.2026",
+      date: "18.12.2026",
       icon: "🏠",
-      image: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/2a6888e9-c7b6-4051-9906-6d92bb24845a.webp",
-      area: "Nhà Gái - Quận Thanh Khê, Đà Nẵng",
-      address: "Số 12, Đường Phan Đình Phùng, TP. Đà Nẵng",
-      mapUrl: "https://maps.app.goo.gl/3LYqUiMHEDbiQ541A"
+      image: "image/wedding-04.jpg",
+      area: "Nhà Gái - Phước Long, Đồng Nai",
+      address: "Phước Long, Đồng Nai",
+      mapUrl: "https://maps.google.com/?q=Ph%C6%B0%E1%BB%9Bc+Long%2C+%C4%90%E1%BB%93ng+Nai"
     },
     {
       id: "tiec-cuoi",
       title: "Tiệc Cưới",
       time: "11:00 - 14:00",
-      date: "26.10.2026",
+      date: "18.12.2026",
       icon: "💒",
-      image: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/59cee9b8-26a7-4a11-8021-fafa15c07696.webp",
-      area: "Trung Tâm Tiệc Cưới White Palace",
-      address: "Trung Tâm Tiệc Cưới White Palace, TP. Đà Nẵng",
-      mapUrl: "https://maps.app.goo.gl/3LYqUiMHEDbiQ541A"
+      image: "image/wedding-05.jpg",
+      area: "Trung Tâm Tiệc Cưới",
+      address: "Phước Long, Đồng Nai",
+      mapUrl: "https://maps.google.com/?q=Ph%C6%B0%E1%BB%9Bc+Long%2C+%C4%90%E1%BB%93ng+Nai"
     }
   ],
 
@@ -111,30 +111,28 @@ const WEDDING_DATA = {
     ],
     items: [
       // Chân dung (Portrait)
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/6c92178d-89a4-4346-8206-14c54e377317.webp", category: "portrait", caption: "Nụ cười rạng rỡ" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/3d8aabaf-137f-413c-a4b3-1f5c04583b4d.webp", category: "portrait", caption: "Ánh mắt trao nhau" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/746c8e52-9032-4bb6-ab94-2b970b4f19ef.webp", category: "portrait", caption: "Tình yêu thuần khiết" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/7356871e-ead5-4dbf-85de-e16c0648b1bd.webp", category: "portrait", caption: "Bên nhau bình yên" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/c569a3ac-2578-4646-8a7b-948db137fb5e.webp", category: "portrait", caption: "Cùng nhìn về tương lai" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/89b05199-d844-4185-b46d-6f1e12dd1f8c.webp", category: "portrait", caption: "Khoảnh khắc hạnh phúc" },
+      { src: "image/wedding-05.jpg", category: "portrait", caption: "Cùng nhìn về tương lai" },
+      { src: "image/wedding-02.jpg", category: "portrait", caption: "Ánh mắt trao nhau" },
+      { src: "image/wedding-03.jpg", category: "portrait", caption: "Tình yêu thuần khiết" },
+      { src: "image/wedding-04.jpg", category: "portrait", caption: "Bên nhau bình yên" },
 
       // Phóng sự cưới (Editorial)
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/a89a1ff3-91c3-40d8-8889-02b46d34d6f5.webp", category: "editorial", caption: "Câu chuyện lãng mạn" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/95af3d2a-3e20-4f85-b2a4-77f936d68e9f.webp", category: "editorial", caption: "Phong cách thanh lịch" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/87b528e2-314d-41d0-b602-166029eadcde.webp", category: "editorial", caption: "Nắm tay qua năm tháng" },
+      { src: "image/wedding-01.jpg", category: "editorial", caption: "Nụ cười rạng rỡ" },
+      { src: "image/wedding-06.jpg", category: "editorial", caption: "Khoảnh khắc hạnh phúc" },
+      { src: "image/wedding-07.jpg", category: "editorial", caption: "Câu chuyện lãng mạn" },
+      { src: "image/wedding-08.jpg", category: "editorial", caption: "Phong cách thanh lịch" },
 
       // Ngoại cảnh (Landscape)
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/d10d2ba1-9a7c-470b-b3d0-e5f4afde3751.webp", category: "landscape", caption: "Giữa thiên nhiên rực rỡ" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/cd8e72a2-c4cd-4679-aa86-7681c955f9aa.webp", category: "landscape", caption: "Hoàng hôn lãng mạn" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/e6c8b06b-c5ac-4c79-848c-65e15752687c.webp", category: "landscape", caption: "Chặng đường chung bước" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/c9082def-53f1-41e6-b99d-10c5072da081.webp", category: "landscape", caption: "Biển xanh và em" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/4c949d23-d6c1-4be6-9759-ad02928d5733.webp", category: "landscape", caption: "Ánh nắng ban mai" },
+      { src: "image/wedding-09.jpg", category: "landscape", caption: "Nắm tay qua năm tháng" },
+      { src: "image/wedding-10.jpg", category: "landscape", caption: "Giữa thiên nhiên rực rỡ" },
+      { src: "image/wedding-11.jpg", category: "landscape", caption: "Hoàng hôn lãng mạn" },
+      { src: "image/wedding-12.jpg", category: "landscape", caption: "Chặng đường chung bước" },
 
       // Cảm xúc (Love Flowey)
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/d73ec6d3-6e5d-4891-aa50-37976abe5ea8.webp", category: "loveFlowey", caption: "Trao nhau lời thề ước" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/260f6b0d-32b8-4134-a166-0a0058c94998.webp", category: "loveFlowey", caption: "Cái ôm ấm áp" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/29fe23c3-1f83-4097-a733-f2fcdd8f79dd.webp", category: "loveFlowey", caption: "Chân thành và sâu lắng" },
-      { src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/075033e1-2cc0-4eb6-8062-ea2c50e83b89.webp", category: "loveFlowey", caption: "Mãi mãi bên nhau" }
+      { src: "image/wedding-13.jpg", category: "loveFlowey", caption: "Ánh nắng ban mai" },
+      { src: "image/wedding-14.jpg", category: "loveFlowey", caption: "Trao nhau lời thề ước" },
+      { src: "image/wedding-15.jpg", category: "loveFlowey", caption: "Cái ôm ấm áp" },
+      { src: "image/wedding-16.jpg", category: "loveFlowey", caption: "Mãi mãi bên nhau" }
     ]
   },
 
@@ -172,26 +170,26 @@ const WEDDING_DATA = {
       name: "NGUYEN VIET TIEN",
       bankName: "Vietcombank (VCB)",
       accountNumber: "1018999888",
-      qr: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/bdb74793-d395-4802-977b-70ba0a02f935.webp",
-      avatar: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/ec8c5b78-d10f-4727-9dd8-e9ffdabc430d.webp"
+      qr: "image/qr-groom.webp",
+      avatar: "image/wedding-01.jpg"
     },
     bride: {
       role: "Cô Dâu",
-      name: "DO THI BICH DUYEN",
+      name: "NGUYEN THI BICH DUYEN",
       bankName: "Vietcombank (VCB)",
       accountNumber: "1028777666",
-      qr: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/e2864c9b-8f31-433d-bd5e-6c7a38161409.webp",
-      avatar: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/11132995-0dc0-4c9c-bb67-1a08b431ad40.webp"
+      qr: "image/qr-bride.webp",
+      avatar: "image/wedding-02.jpg"
     }
   },
 
   // Ảnh nền các khu vực
   assets: {
-    envelopeImage: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/envelop/Screenshot_2026-05-14_194831_mqb3b6.png",
-    heroImage: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/3d8aabaf-137f-413c-a4b3-1f5c04583b4d.webp",
-    countdownImage: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/c776dd26-133b-4431-81cc-71911bdb1912.webp",
-    wishesCover: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/b75a1ccf-723f-44a4-a3b3-f09d061be285.webp",
-    thankYouImage: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/prod/vuong-ha/b43808d8-4642-4c87-9133-7e29991e0197.webp"
+    envelopeImage: "image/wedding-05.jpg",
+    heroImage: "image/wedding-05.jpg",
+    countdownImage: "image/wedding-12.jpg",
+    wishesCover: "image/wedding-07.jpg",
+    thankYouImage: "image/wedding-16.jpg"
   },
 
   // Lời chúc mẫu ban đầu
