@@ -39,28 +39,17 @@ Source code thiệp cưới điện tử trực tuyến cao cấp, sao chép tr�
 
 ---
 
-## 📁 2 Phiên Bản Giao Diện & Cấu Trúc Thư Mục
-
-1. **Phiên bản 1 - Mẫu Cổ Điển Hoàng Gia (Sunswedding)**:
-   - File: [`index.html`](file:///d:/invitation/index.html)
-   - Tham số khách mời: `index.html?guest=bạn%20Minh%20Hiếu`
-2. **Phiên bản 2 - Mẫu Minimalism Đỏ Đậm (Chung Đôi)**:
-   - File: [`minimalism-do-dam.html`](file:///d:/invitation/minimalism-do-dam.html) (hoặc [`minimalism.html`](file:///d:/invitation/minimalism.html))
-   - Tham số khách mời: `minimalism-do-dam.html?guest=bạn%20Minh%20Hiếu`
+## 📁 Cấu Trúc Thư Mục
 
 ```text
 d:\invitation\
-├── index.html              # Phiên bản 1: Mẫu Cổ Điển Hoàng Gia (Sunswedding)
-├── minimalism-do-dam.html  # Phiên bản 2: Mẫu Minimalism Đỏ Đậm (Chung Đôi)
-├── minimalism.html         # Đường dẫn phụ cho Mẫu Minimalism Đỏ Đậm
+├── index.html              # Thiệp cưới chính
 ├── image\                  # Toàn bộ 16 ảnh cưới (wedding-01..16.jpg) và QR ngân hàng
 ├── css\
 │   ├── style.css           # CSS mẫu cổ điển
-│   ├── animations.css      # Hoạt ảnh mở thư 3D
-│   └── minimalism.css      # CSS mẫu Minimalism Đỏ Đậm sang trọng
+│   └── animations.css      # Hoạt ảnh mở thư 3D
 ├── js\
 │   ├── data.js             # Cấu hình dữ liệu chung (ngày cưới 18/12, Phước Long Đồng Nai, ảnh, ngân hàng)
-│   ├── minimalism.js       # Script điều khiển cho mẫu Minimalism Đỏ Đậm
 │   ├── envelope.js, music.js, petals.js, gallery.js, countdown.js, rsvp.js, wishes.js, app.js
 └── README.md               # Hướng dẫn chi tiết
 ```
