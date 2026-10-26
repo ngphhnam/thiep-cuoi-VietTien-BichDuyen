@@ -23,7 +23,7 @@ const WEDDING_DATA = {
       name: "Việt Tiến",
       shortName: "Tiến",
       rank: "Thứ Nam",
-      image: "image/wedding-01.jpg",
+      image: "image/avatar-groom.jpg",
       father: "Phêrô Lê Quốc Việt",
       mother: "Maria Lê Thị Bích Ngọc",
       address: "281 Quốc Lộ 57B, Lộc Thuận, Vĩnh Long",
@@ -35,7 +35,7 @@ const WEDDING_DATA = {
       name: "Bích Duyên",
       shortName: "Duyên",
       rank: "Trưởng Nữ",
-      image: "image/wedding-02.jpg",
+      image: "image/avatar-bride.jpg",
       father: "Phêrô Nguyễn Tri Quân",
       mother: "Phan Thị Mỹ",
       address: "Tổ 2, Khu Phố 3, Long Thủy, Phước Long, Đồng Nai",
@@ -50,17 +50,17 @@ const WEDDING_DATA = {
     coverImage: "image/wedding-03.jpg",
     milestones: [
       {
-        year: "2021",
+        year: "2023",
         title: "Lần Đầu Gặp Gỡ",
         desc: "Định mệnh đã đưa chúng mình gặp nhau vào một ngày thu đẹp trời. Ánh mắt đầu tiên ấy đã trở thành khởi đầu cho một hành trình kỳ diệu."
       },
       {
-        year: "2023",
+        year: "2025",
         title: "Lời Tỏ Tình",
         desc: "Sau những ngày tháng cùng sẻ chia bao niềm vui nỗi buồn, cái nắm tay ngập ngừng dưới ánh hoàng hôn đã gắn kết hai trái tim thành một."
       },
       {
-        year: "2025",
+        year: "2026",
         title: "Lời Cầu Hôn",
         desc: "Khoảnh khắc chiếc nhẫn trao tay cùng lời hứa đồng hành trọn đời. Chúng mình đã sẵn sàng cho chương mới tuyệt vời nhất."
       }
@@ -116,29 +116,25 @@ const WEDDING_DATA = {
       { id: "loveFlowey", label: "Cảm xúc" }
     ],
     items: [
-      // Chân dung (Portrait)
-      { src: "image/wedding-05.jpg", category: "portrait", caption: "Cùng nhìn về tương lai" },
-      { src: "image/wedding-02.jpg", category: "portrait", caption: "Ánh mắt trao nhau" },
-      { src: "image/wedding-03.jpg", category: "portrait", caption: "Tình yêu thuần khiết" },
-      { src: "image/wedding-04.jpg", category: "portrait", caption: "Bên nhau bình yên" },
+      // 6 ảnh lưới đầu tiên xen kẽ Ngoài trời & Trong studio
+      { src: "image/wedding-05.jpg", category: "landscape", caption: "Cùng nhìn về tương lai (Ngoài trời)" },
+      { src: "image/wedding-10.jpg", category: "portrait", caption: "Nụ cười rạng rỡ (Trong studio)" },
+      { src: "image/wedding-03.jpg", category: "landscape", caption: "Tình yêu thuần khiết (Ngoài trời)" },
+      { src: "image/wedding-09.jpg", category: "portrait", caption: "Sánh bước bên nhau (Trong studio)" },
+      { src: "image/wedding-01.jpg", category: "landscape", caption: "Nụ cười hạnh phúc (Ngoài trời)" },
+      { src: "image/wedding-14.jpg", category: "portrait", caption: "Trọn vẹn yêu thương (Trong studio)" },
 
-      // Phóng sự cưới (Editorial)
-      { src: "image/wedding-01.jpg", category: "editorial", caption: "Nụ cười rạng rỡ" },
-      { src: "image/wedding-06.jpg", category: "editorial", caption: "Khoảnh khắc hạnh phúc" },
+      // Các ảnh tiếp theo trong album
+      { src: "image/wedding-02.jpg", category: "landscape", caption: "Ánh mắt trao nhau" },
+      { src: "image/wedding-04.jpg", category: "landscape", caption: "Bên nhau bình yên" },
+      { src: "image/wedding-06.jpg", category: "landscape", caption: "Khoảnh khắc hạnh phúc" },
       { src: "image/wedding-07.jpg", category: "editorial", caption: "Câu chuyện lãng mạn" },
       { src: "image/wedding-08.jpg", category: "editorial", caption: "Phong cách thanh lịch" },
-
-      // Ngoại cảnh (Landscape)
-      { src: "image/wedding-09.jpg", category: "landscape", caption: "Nắm tay qua năm tháng" },
-      { src: "image/wedding-10.jpg", category: "landscape", caption: "Giữa thiên nhiên rực rỡ" },
-      { src: "image/wedding-11.jpg", category: "landscape", caption: "Hoàng hôn lãng mạn" },
-      { src: "image/wedding-12.jpg", category: "landscape", caption: "Chặng đường chung bước" },
-
-      // Cảm xúc (Love Flowey)
-      { src: "image/wedding-13.jpg", category: "loveFlowey", caption: "Ánh nắng ban mai" },
-      { src: "image/wedding-14.jpg", category: "loveFlowey", caption: "Trao nhau lời thề ước" },
-      { src: "image/wedding-15.jpg", category: "loveFlowey", caption: "Cái ôm ấm áp" },
-      { src: "image/wedding-16.jpg", category: "loveFlowey", caption: "Mãi mãi bên nhau" }
+      { src: "image/wedding-11.jpg", category: "portrait", caption: "Hoàng hôn lãng mạn" },
+      { src: "image/wedding-12.jpg", category: "portrait", caption: "Chặng đường chung bước" },
+      { src: "image/wedding-13.jpg", category: "portrait", caption: "Ánh nắng ban mai" },
+      { src: "image/wedding-15.jpg", category: "editorial", caption: "Cái ôm ấm áp" },
+      { src: "image/wedding-16.jpg", category: "editorial", caption: "Mãi mãi bên nhau" }
     ]
   },
 
@@ -171,21 +167,13 @@ const WEDDING_DATA = {
 
   // Tài khoản mừng cưới
   bankAccounts: {
-    groom: {
-      role: "Chú Rể",
-      name: "NGUYEN VIET TIEN",
-      bankName: "Vietcombank (VCB)",
-      accountNumber: "1018999888",
-      qr: "image/qr-groom.webp",
-      avatar: "image/wedding-01.jpg"
-    },
     bride: {
       role: "Cô Dâu",
       name: "NGUYEN THI BICH DUYEN",
-      bankName: "Vietcombank (VCB)",
-      accountNumber: "1028777666",
-      qr: "image/qr-bride.webp",
-      avatar: "image/wedding-02.jpg"
+      bankName: "VPBank (Ngân hàng TMCP Việt Nam Thịnh Vượng)",
+      accountNumber: "0869256093",
+      qr: "image/qr-bichduyen.jpg",
+      avatar: "image/avatar-bride.jpg"
     }
   },
 
@@ -193,9 +181,9 @@ const WEDDING_DATA = {
   assets: {
     envelopeImage: "image/wedding-05.jpg",
     heroImage: "image/wedding-05.jpg",
-    countdownImage: "image/wedding-12.jpg",
+    countdownImage: "image/countdown-bg.jpg",
     wishesCover: "image/wedding-07.jpg",
-    thankYouImage: "image/wedding-16.jpg"
+    thankYouImage: "image/wedding-14.jpg"
   },
 
   // Lời chúc mẫu ban đầu
