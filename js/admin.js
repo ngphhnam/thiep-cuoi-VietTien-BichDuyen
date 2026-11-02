@@ -9,6 +9,8 @@ const AdminApp = (() => {
   const STORAGE_KEY_AUTH = 'wedding_admin_authenticated';
   const STORAGE_KEY_GUESTS = 'wedding_admin_guests_v1';
   const STORAGE_KEY_TEMPLATE = 'wedding_admin_msg_template';
+  const STORAGE_KEY_SHEET_URL = 'wedding_admin_sheet_url';
+  const DEFAULT_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyBdBB6x_9SwFdLJxtYzVdjm1URAPD2r32iDaC0mlhbwamKd9ljm43ZhX_MXV4LeTmgMw/exec';
 
   // Mẫu tin nhắn mời cưới mặc định
   const DEFAULT_MESSAGE_TEMPLATE = 
@@ -98,6 +100,13 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
     if (templateInput) {
       templateInput.value = savedTemplate || DEFAULT_MESSAGE_TEMPLATE;
     }
+
+    updateSheetSyncStatus();
+    // Tự động đồng bộ với Google Sheets nếu đã cài URL
+    const sheetUrl = localStorage.getItem(STORAGE_KEY_SHEET_URL);
+    if (sheetUrl) {
+      syncWithSheet(false);
+    }
   };
 
   const saveData = () => {
@@ -106,6 +115,162 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
       updateStats();
     } catch (e) {
       console.error('Lỗi lưu dữ liệu khách:', e);
+    }
+  };
+
+  // ==================== GOOGLE SHEETS SYNC ====================
+  const getSheetUrl = () => {
+    return localStorage.getItem(STORAGE_KEY_SHEET_URL) || DEFAULT_SHEET_URL;
+  };
+
+  const updateSheetSyncStatus = () => {
+    const sheetUrl = getSheetUrl();
+    const dot = document.getElementById('sync-status-dot');
+    const text = document.getElementById('sync-status-text');
+    const btnSync = document.getElementById('btn-sync-now');
+
+    if (sheetUrl) {
+      if (dot) {
+        dot.className = 'sync-status-dot connected';
+      }
+      if (text) {
+        text.innerHTML = '🟢 <strong>Đã kết nối Google Sheet:</strong> Dữ liệu tự động đồng bộ thời gian thực.';
+      }
+      if (btnSync) btnSync.style.display = 'inline-flex';
+    } else {
+      if (dot) {
+        dot.className = 'sync-status-dot disconnected';
+      }
+      if (text) {
+        text.textContent = '⚪ Chưa kết nối Google Sheet (Đang lưu an toàn trên máy).';
+      }
+      if (btnSync) btnSync.style.display = 'none';
+    }
+  };
+
+  const openSheetModal = () => {
+    const modal = document.getElementById('sheet-modal');
+    const input = document.getElementById('sheet-url-input');
+    const currentUrl = getSheetUrl();
+    if (input) input.value = currentUrl;
+    if (modal) modal.classList.add('show');
+  };
+
+  const closeSheetModal = () => {
+    const modal = document.getElementById('sheet-modal');
+    if (modal) modal.classList.remove('show');
+  };
+
+  const saveSheetUrl = async () => {
+    const input = document.getElementById('sheet-url-input');
+    const url = input ? input.value.trim() : '';
+    if (!url) {
+      showToast('Vui lòng nhập Web App URL của Google Apps Script!');
+      return;
+    }
+    if (!url.startsWith('https://script.google.com/')) {
+      alert('Đường dẫn không hợp lệ. URL phải bắt đầu bằng https://script.google.com/macros/s/...');
+      return;
+    }
+
+    localStorage.setItem(STORAGE_KEY_SHEET_URL, url);
+    closeSheetModal();
+    updateSheetSyncStatus();
+    showToast('Đang kết nối & đồng bộ dữ liệu với Google Sheet...');
+    await syncWithSheet(true);
+  };
+
+  const disconnectSheet = () => {
+    if (confirm('Bạn có chắc muốn hủy kết nối với Google Sheet không? (Dữ liệu trên máy vẫn được giữ nguyên)')) {
+      localStorage.removeItem(STORAGE_KEY_SHEET_URL);
+      closeSheetModal();
+      updateSheetSyncStatus();
+      showToast('Đã hủy kết nối Google Sheet.');
+    }
+  };
+
+  // Đồng bộ 2 chiều với Google Sheets
+  const syncWithSheet = async (showNotice = false) => {
+    const sheetUrl = getSheetUrl();
+    if (!sheetUrl) return;
+
+    try {
+      const response = await fetch(`${sheetUrl}?action=get_all&t=${Date.now()}`);
+      if (!response.ok) throw new Error('Không thể kết nối');
+      const data = await response.json();
+
+      if (Array.isArray(data)) {
+        let updatedCount = 0;
+        data.forEach(item => {
+          if (!item.name) return;
+          const cleanName = String(item.name).trim();
+          const existing = guests.find(g => g.name.toLowerCase() === cleanName.toLowerCase());
+          if (existing) {
+            // Cập nhật trạng thái nếu trên Sheet đã đánh dấu gửi
+            if (item.copied && !existing.copied) {
+              existing.copied = true;
+              existing.copiedAt = item.copiedAt || new Date().toLocaleString('vi-VN');
+              updatedCount++;
+            }
+          } else {
+            // Thêm khách mới từ Sheet vào danh sách
+            guests.push({
+              id: 'guest_' + (Date.now() + Math.floor(Math.random() * 10000)),
+              name: cleanName,
+              copied: !!item.copied,
+              copiedAt: item.copiedAt || null,
+              createdAt: new Date().toISOString()
+            });
+            updatedCount++;
+          }
+        });
+
+        // Nếu trên web có khách chưa có trên Sheet, đẩy lên Sheet
+        const missingOnSheet = guests.filter(g => 
+          !data.some(d => String(d.name).toLowerCase().trim() === g.name.toLowerCase())
+        );
+        if (missingOnSheet.length > 0) {
+          postToSheet({
+            action: 'add_guests',
+            guests: missingOnSheet.map(g => ({
+              name: g.name,
+              link: generateGuestLink(g.name),
+              copied: g.copied,
+              copiedAt: g.copiedAt
+            }))
+          });
+        }
+
+        saveData();
+        render();
+        if (showNotice) {
+          showToast(`Đồng bộ thành công! (${guests.length} khách mời)`);
+        }
+      }
+    } catch (err) {
+      console.warn('Lỗi đồng bộ Google Sheet:', err);
+      if (showNotice) {
+        showToast('Không thể kết nối đến Google Sheet. Vui lòng kiểm tra lại URL.');
+      }
+    }
+  };
+
+  // Gửi thay đổi lên Google Sheets (Chạy ngầm không làm đơ trang)
+  const postToSheet = (payload) => {
+    const sheetUrl = getSheetUrl();
+    if (!sheetUrl) return;
+
+    try {
+      fetch(sheetUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(payload)
+      }).catch(e => console.warn('Lỗi ghi Google Sheet:', e));
+    } catch (e) {
+      console.warn('postToSheet error:', e);
     }
   };
 
@@ -302,6 +467,13 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
     saveData();
     renderRow(guest.id);
     updateStats();
+
+    // Gửi cập nhật trực tiếp lên Google Sheet
+    postToSheet({
+      action: 'mark_copied',
+      name: guest.name,
+      copiedAt: guest.copiedAt
+    });
   };
 
   // Xóa 1 khách mời
@@ -522,7 +694,12 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
     downloadSampleExcel,
     handleSearch,
     setFilter,
-    switchTab
+    switchTab,
+    openSheetModal,
+    closeSheetModal,
+    saveSheetUrl,
+    disconnectSheet,
+    syncWithSheet
   };
 })();
 

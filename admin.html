@@ -93,6 +93,22 @@
         </div>
       </section>
 
+      <!-- Thanh Đồng Bộ Google Sheets -->
+      <section class="sync-banner">
+        <div class="sync-banner-left">
+          <span class="sync-status-dot disconnected" id="sync-status-dot"></span>
+          <span class="sync-status-text" id="sync-status-text">Chưa kết nối Google Sheet (Đang lưu offline trên máy)</span>
+        </div>
+        <div class="sync-banner-actions">
+          <button type="button" class="btn btn-outline-gold btn-sm" onclick="AdminApp.syncWithSheet(true)" id="btn-sync-now" style="display: none;">
+            🔄 Đồng Bộ Ngay
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="AdminApp.openSheetModal()">
+            ⚙️ Cấu Hình Google Sheet
+          </button>
+        </div>
+      </section>
+
       <!-- Khung Thêm / Import Khách Mời -->
       <section class="card import-card">
         <div class="card-header">
@@ -202,6 +218,44 @@
         </div>
       </section>
     </main>
+  </div>
+
+  <!-- Modal Cấu Hình Google Sheets -->
+  <div id="sheet-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">📊 Kết Nối Google Sheets</h3>
+        <button type="button" class="modal-close" onclick="AdminApp.closeSheetModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 1rem; color: var(--color-text-secondary); font-size: 0.9rem;">
+          Đồng bộ danh sách khách mời và trạng thái "Đã copy" trực tiếp với Google Sheet của bạn để hai vợ chồng cùng theo dõi trên điện thoại.
+        </p>
+
+        <div class="form-group">
+          <label for="sheet-url-input">Google Apps Script Web App URL:</label>
+          <input type="url" id="sheet-url-input" placeholder="https://script.google.com/macros/s/.../exec" style="width: 100%; padding: 0.65rem; border: 1px solid var(--color-border); border-radius: 6px; font-size: 0.85rem;" />
+        </div>
+
+        <div class="guide-box">
+          <strong>📋 Hướng dẫn lấy URL trong 1 phút:</strong>
+          <ol>
+            <li>Tạo một file <strong>Google Sheet mới</strong> (Đặt tên ví dụ: <em>Thiệp Cưới 2026</em>).</li>
+            <li>Vào menu <strong>Tiện ích mở rộng (Extensions)</strong> &rarr; chọn <strong>Apps Script</strong>.</li>
+            <li>Dán đoạn mã script (có sẵn trong file hướng dẫn) &rarr; Bấm <strong>Lưu</strong>.</li>
+            <li>Bấm nút <strong>Triển khai (Deploy)</strong> &rarr; <strong>Tùy chọn triển khai mới (New deployment)</strong>:
+              <br>&bull; Chọn loại: <em>Ứng dụng web (Web app)</em>
+              <br>&bull; Ai có quyền truy cập (Who has access): <strong>Bất kỳ ai (Anyone)</strong>.
+            </li>
+            <li>Bấm <strong>Triển khai</strong> rồi copy đường link <strong>Web app URL</strong> dán vào ô phía trên!</li>
+          </ol>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="AdminApp.disconnectSheet()">Hủy Kết Nối</button>
+        <button type="button" class="btn btn-primary" onclick="AdminApp.saveSheetUrl()">Lưu &amp; Đồng Bộ</button>
+      </div>
+    </div>
   </div>
 
   <!-- Toast Thông Báo Góc Màn Hình -->
