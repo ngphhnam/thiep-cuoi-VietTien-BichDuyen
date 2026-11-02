@@ -8,8 +8,8 @@
 
 /* 2. DESIGN TOKENS & VARIABLES */
 :root {
-  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --font-display: 'Cinzel', 'Cormorant Garamond', serif;
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Cinzel', 'Playfair Display', serif;
   --font-script: 'Great Vibes', cursive;
   --font-sans: 'Be Vietnam Pro', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
 
@@ -67,6 +67,10 @@ body {
   overflow-x: hidden;
   position: relative;
   -webkit-font-smoothing: antialiased;
+  font-variant-numeric: lining-nums;
+  -moz-font-feature-settings: "lnum" 1;
+  -webkit-font-feature-settings: "lnum" 1;
+  font-feature-settings: "lnum" 1;
 }
 
 img {
@@ -578,11 +582,11 @@ html.envelope-locked, body.envelope-locked {
 }
 
 .hero-couple-name {
-  font-family: var(--font-serif);
-  font-size: 2.6rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.7rem;
   line-height: 1.25;
   margin-bottom: 1.25rem;
-  font-weight: 400;
+  font-weight: 500;
   font-style: italic;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
   display: flex;
@@ -599,7 +603,7 @@ html.envelope-locked, body.envelope-locked {
 
 .hero-amp {
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   color: #ffffff;
   margin-right: 0.25rem;
 }
@@ -630,11 +634,15 @@ html.envelope-locked, body.envelope-locked {
 }
 
 .hero-wedding-date {
-  font-family: var(--font-serif);
+  font-family: 'Playfair Display', var(--font-sans), serif;
   font-size: 1.45rem;
   letter-spacing: 0.15em;
   color: #ffffff;
   margin-bottom: 0.4rem;
+  font-variant-numeric: lining-nums tabular-nums;
+  -moz-font-feature-settings: "lnum" 1;
+  -webkit-font-feature-settings: "lnum" 1;
+  font-feature-settings: "lnum" 1;
 }
 
 .hero-location {
@@ -983,6 +991,7 @@ html.envelope-locked, body.envelope-locked {
 .family-divider-col .family-icon {
   font-size: 1.35rem;
   color: var(--color-gold);
+  line-height: 1;
 }
 
 .family-divider-col .family-line-v {
@@ -993,13 +1002,27 @@ html.envelope-locked, body.envelope-locked {
 
 @media (max-width: 767px) {
   .family-divider-col {
+    display: flex;
     flex-direction: row;
-    margin: 0.5rem 0;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    margin: 1.25rem auto;
+    width: 100%;
   }
-  .family-divider-col .family-line-v {
+  .family-divider-col::before,
+  .family-divider-col::after {
+    content: '';
+    display: block;
     width: 60px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.45));
+  }
+  .family-divider-col::after {
+    background: linear-gradient(90deg, rgba(201, 162, 39, 0.45), transparent);
+  }
+  .family-divider-col .family-line-v {
+    display: none;
   }
 }
 
@@ -1145,6 +1168,17 @@ html.envelope-locked, body.envelope-locked {
 /* 12. VENUES & LỊCH TRÌNH SỰ KIỆN */
 .venues-section {
   background-color: var(--color-bg-secondary);
+}
+
+.venues-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+@media (max-width: 767px) {
+  .venues-header {
+    margin-bottom: 1.25rem;
+  }
 }
 
 .venues-grid {
@@ -1402,6 +1436,16 @@ html.envelope-locked, body.envelope-locked {
   margin-bottom: 3rem;
 }
 
+@media (max-width: 767px) {
+  /* Bố cục đối xứng chéo trên điện thoại: hoán đổi ảnh 3 và ảnh 4 */
+  .gallery-grid .gallery-item:nth-child(1) { order: 1; }
+  .gallery-grid .gallery-item:nth-child(2) { order: 2; }
+  .gallery-grid .gallery-item:nth-child(3) { order: 4; }
+  .gallery-grid .gallery-item:nth-child(4) { order: 3; }
+  .gallery-grid .gallery-item:nth-child(5) { order: 5; }
+  .gallery-grid .gallery-item:nth-child(6) { order: 6; }
+}
+
 @media (min-width: 768px) {
   .gallery-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1576,16 +1620,27 @@ html.envelope-locked, body.envelope-locked {
 
 .magazine-hero-photo {
   position: relative;
-  height: 350px;
+  width: 100%;
+  aspect-ratio: 1333 / 2000;
+  height: auto;
   border-radius: 6px;
   overflow: hidden;
   cursor: pointer;
   box-shadow: var(--shadow-md);
 }
 
-@media (min-width: 768px) {
+.magazine-hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@media (min-width: 992px) {
   .magazine-hero-photo {
-    height: 520px;
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 520px;
   }
 }
 

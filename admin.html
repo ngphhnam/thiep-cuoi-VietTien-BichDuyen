@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản Trị Thiệp Cưới - Bích Duyên &amp; Việt Tiến</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+    rel="stylesheet">
+
+  <!-- SheetJS để đọc & xuất file Excel trực tiếp -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <!-- CSS Quản Trị -->
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+  <!-- ==================== 1. MÀN HÌNH ĐĂNG NHẬP ==================== -->
+  <div id="login-screen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-logo">💌</div>
+      <h1 class="auth-title">Bích Duyên &amp; Việt Tiến</h1>
+      <p class="auth-sub">Hệ thống quản lý khách mời &amp; tạo link thiệp</p>
+
+      <form id="login-form" class="auth-form" onsubmit="AdminApp.handleLogin(event)">
+        <div class="form-group">
+          <label for="pin-input">Nhập mã PIN truy cập</label>
+          <input type="password" id="pin-input" placeholder="Mặc định: 1812" autocomplete="off" autofocus required />
+        </div>
+        <p id="login-error" class="error-msg"></p>
+        <button type="submit" class="btn btn-primary btn-block">Đăng Nhập Quản Trị</button>
+      </form>
+
+      <a href="index.html" class="back-home-link">← Quay lại trang thiệp cưới</a>
+    </div>
+  </div>
+
+  <!-- ==================== 2. MÀN HÌNH QUẢN TRỊ CHÍNH ==================== -->
+  <div id="admin-dashboard" class="dashboard-wrap" style="display: none;">
+    <!-- Topbar -->
+    <header class="admin-header">
+      <div class="header-container">
+        <div class="brand">
+          <span class="brand-icon">💍</span>
+          <div>
+            <h2 class="brand-title">Bích Duyên &amp; Việt Tiến</h2>
+            <span class="brand-sub">Quản Lý Danh Sách Khách Mời</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <a href="index.html" target="_blank" class="btn btn-outline-gold" title="Xem trang thiệp cưới">
+            🌐 Xem Thiệp
+          </a>
+          <button type="button" class="btn btn-outline" onclick="AdminApp.handleLogout()">
+            Đăng Xuất
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-main">
+      <!-- Thống kê tổng quan -->
+      <section class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon icon-total">👥</div>
+          <div class="stat-info">
+            <span class="stat-label">Tổng khách mời</span>
+            <span id="stat-total" class="stat-val">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-copied">✅</div>
+          <div class="stat-info">
+            <span class="stat-label">Đã copy gửi</span>
+            <span id="stat-copied" class="stat-val">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-pending">⏳</div>
+          <div class="stat-info">
+            <span class="stat-label">Chưa copy</span>
+            <span id="stat-pending" class="stat-val">0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Khung Thêm / Import Khách Mời -->
+      <section class="card import-card">
+        <div class="card-header">
+          <h3 class="card-title">📥 Thêm Khách Mời</h3>
+          <div class="tab-buttons">
+            <button class="tab-btn active" onclick="AdminApp.switchTab('excel')">Nhập File Excel</button>
+            <button class="tab-btn" onclick="AdminApp.switchTab('manual')">Dán Tên Khách</button>
+            <button class="tab-btn" onclick="AdminApp.switchTab('template')">Mẫu Tin Nhắn</button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <!-- Tab 1: Upload Excel -->
+          <div id="tab-excel" class="tab-content active">
+            <div class="excel-dropzone" id="excel-dropzone">
+              <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv"
+                onchange="AdminApp.handleFileUpload(event)" />
+              <div class="dropzone-content">
+                <span class="dropzone-icon">📊</span>
+                <p class="dropzone-title">Kéo &amp; thả file Excel vào đây hoặc <span class="highlight">bấm để chọn
+                    file</span></p>
+                <p class="dropzone-desc">Hỗ trợ file .xlsx, .xls, .csv (Chỉ cần 1 cột chứa Tên Khách Mời)</p>
+              </div>
+            </div>
+            <div class="excel-sample-hint">
+              <span>💡 Mẹo: Cột đầu tiên trong file Excel sẽ tự động được nhận làm Tên Khách Mời.</span>
+              <button type="button" class="btn-text" onclick="AdminApp.downloadSampleExcel()">Tải file mẫu mẫu.xlsx</button>
+            </div>
+          </div>
+
+          <!-- Tab 2: Nhập tay dán nhiều dòng -->
+          <div id="tab-manual" class="tab-content">
+            <form onsubmit="AdminApp.handleManualAdd(event)">
+              <div class="form-group">
+                <label for="manual-names-input">Dán danh sách tên (Mỗi tên 1 dòng):</label>
+                <textarea id="manual-names-input" rows="4"
+                  placeholder="Ví dụ:&#10;Anh Tuấn & Bạn Gái&#10;Gia đình Bác Hùng&#10;Bạn Phương Thảo..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">+ Thêm Vào Danh Sách</button>
+            </form>
+          </div>
+
+          <!-- Tab 3: Cấu hình Mẫu Tin Nhắn Mời -->
+          <div id="tab-template" class="tab-content">
+            <div class="form-group">
+              <label for="msg-template-input">
+                Mẫu tin nhắn gửi kèm link (Dùng <code>{name}</code> cho tên khách và <code>{link}</code> cho link thiệp):
+              </label>
+              <textarea id="msg-template-input" rows="4"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" onclick="AdminApp.saveMessageTemplate()">Lưu Mẫu Tin Nhắn</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Danh Sách Khách Mời & Bảng Tạo Link -->
+      <section class="card table-card">
+        <div class="card-header table-header-wrap">
+          <div class="filter-controls">
+            <!-- Tìm kiếm -->
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="search-input" placeholder="Tìm tên khách mời..."
+                oninput="AdminApp.handleSearch(event)" />
+            </div>
+
+            <!-- Bộ lọc trạng thái -->
+            <div class="filter-btns">
+              <button class="filter-btn active" data-filter="all" onclick="AdminApp.setFilter('all')">Tất cả</button>
+              <button class="filter-btn" data-filter="pending" onclick="AdminApp.setFilter('pending')">Chưa copy</button>
+              <button class="filter-btn" data-filter="copied" onclick="AdminApp.setFilter('copied')">Đã copy</button>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <button type="button" class="btn btn-outline-success" onclick="AdminApp.exportExcel()">
+              📥 Xuất File Excel
+            </button>
+            <button type="button" class="btn btn-outline-danger" onclick="AdminApp.clearAllGuests()">
+              🗑️ Xóa Tất Cả
+            </button>
+          </div>
+        </div>
+
+        <!-- Bảng danh sách -->
+        <div class="table-responsive">
+          <table class="guests-table">
+            <thead>
+              <tr>
+                <th width="60">STT</th>
+                <th>Tên Khách Mời</th>
+                <th>Link Mời Riêng</th>
+                <th width="140" style="text-align: center;">Trạng Thái</th>
+                <th width="240" style="text-align: right;">Hành Động</th>
+              </tr>
+            </thead>
+            <tbody id="guests-tbody">
+              <!-- Render động qua JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="empty-state" class="empty-state" style="display: none;">
+          <span class="empty-icon">📭</span>
+          <p class="empty-title">Chưa có khách mời nào trong danh sách</p>
+          <p class="empty-desc">Hãy nhập file Excel hoặc dán danh sách tên khách ở phía trên để bắt đầu tạo link mời nhé!</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast Thông Báo Góc Màn Hình -->
+  <div id="toast" class="toast"></div>
+
+  <!-- JS Logic Quản Trị -->
+  <script src="js/admin.js"></script>
+</body>
+
+</html>
+
