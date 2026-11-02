@@ -4,8 +4,8 @@
  */
 
 const AdminApp = (() => {
-  // Cấu hình mã PIN đăng nhập mặc định (hoặc 18122026)
-  const VALID_PINS = ['1812', '18122026'];
+  // Cấu hình mã PIN đăng nhập (1998)
+  const VALID_PINS = ['1998'];
   const STORAGE_KEY_AUTH = 'wedding_admin_authenticated';
   const STORAGE_KEY_GUESTS = 'wedding_admin_guests_v1';
   const STORAGE_KEY_TEMPLATE = 'wedding_admin_msg_template';
