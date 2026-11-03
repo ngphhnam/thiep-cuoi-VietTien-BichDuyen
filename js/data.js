@@ -121,11 +121,11 @@ const WEDDING_DATA = {
       { src: "image/wedding-10.jpg", category: "portrait", caption: "Nụ cười rạng rỡ (Trong studio)" },
       { src: "image/wedding-03.jpg", category: "landscape", caption: "Tình yêu thuần khiết (Ngoài trời)" },
       { src: "image/wedding-09.jpg", category: "portrait", caption: "Sánh bước bên nhau (Trong studio)" },
-      { src: "image/wedding-01.jpg", category: "landscape", caption: "Nụ cười hạnh phúc (Ngoài trời)" },
+      { src: "image/wedding-02.jpg", category: "landscape", caption: "Ánh mắt trao nhau (Ngoài trời)" },
       { src: "image/wedding-14.jpg", category: "portrait", caption: "Trọn vẹn yêu thương (Trong studio)" },
 
       // Các ảnh tiếp theo trong album
-      { src: "image/wedding-02.jpg", category: "landscape", caption: "Ánh mắt trao nhau" },
+      { src: "image/wedding-01.jpg", category: "landscape", caption: "Nụ cười hạnh phúc" },
       { src: "image/wedding-04.jpg", category: "landscape", caption: "Bên nhau bình yên" },
       { src: "image/wedding-06.jpg", category: "landscape", caption: "Khoảnh khắc hạnh phúc" },
       { src: "image/wedding-07.jpg", category: "editorial", caption: "Câu chuyện lãng mạn" },
@@ -150,7 +150,7 @@ const WEDDING_DATA = {
   playlist: [
     {
       title: "Lễ đường",
-      artist: "Hồ Phi Nal",
+      artist: "Kai Đinh",
       src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/songs/le-duong-b33db5e2.mp3"
     },
     {
@@ -162,6 +162,16 @@ const WEDDING_DATA = {
       title: "Một đời",
       artist: "14 Casper & Bon",
       src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/songs/mot-doi-ed2a6f03.mp3"
+    },
+    {
+      title: "I Do",
+      artist: "911 Band",
+      src: "https://cdn.jsdelivr.net/gh/quangtuan2201/wedding-invitation@master/mp3/IDo.mp3"
+    },
+    {
+      title: "Beautiful In White",
+      artist: "Shane Filan",
+      src: "https://raw.githubusercontent.com/DungMihn/DungMihnWedding/master/beautifulinwhite.mp3"
     }
   ],
 
@@ -186,36 +196,8 @@ const WEDDING_DATA = {
     thankYouImage: "image/wedding-14.jpg"
   },
 
-  // Lời chúc mẫu ban đầu
-  initialWishes: [
-    {
-      id: 1,
-      name: "Minh Hiếu",
-      relation: "Bạn thân",
-      side: "Cả hai",
-      message: "Chúc hai bạn trăm năm hạnh phúc, đầu bạc răng long, sớm sinh quý tử nhé! Rất háo hức chờ đến ngày cưới!",
-      time: "20:15 - 23/08/2026",
-      likes: 12
-    },
-    {
-      id: 2,
-      name: "Thanh Trúc",
-      relation: "Bạn cô dâu",
-      side: "Cô dâu",
-      message: "Chúc mừng cô dâu xinh đẹp nhất trần đời! Chúc hai vợ chồng luôn ngọt ngào và hạnh phúc như ngày đầu tiên!",
-      time: "18:30 - 23/08/2026",
-      likes: 8
-    },
-    {
-      id: 3,
-      name: "Tuấn Anh",
-      relation: "Đồng nghiệp chú rể",
-      side: "Chú rể",
-      message: "Chúc mừng người anh em đã tìm được một nửa hoàn hảo. Chúc hai bạn một đời an yên và thịnh vượng!",
-      time: "15:45 - 23/08/2026",
-      likes: 15
-    }
-  ]
+  // Lời chúc mẫu ban đầu (để trống để nhận lời chúc thực tế từ khách)
+  initialWishes: []
 };
 
 // Gán toàn cục vào window để các module luôn truy cập được

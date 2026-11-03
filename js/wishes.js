@@ -73,6 +73,15 @@ const WishesController = (() => {
 
     feed.innerHTML = '';
 
+    if (wishes.length === 0) {
+      feed.innerHTML = `
+        <div style="text-align: center; padding: 2.5rem 1rem; color: #8c867e; font-style: italic; font-size: 0.95rem;">
+          Chưa có lời chúc nào. Hãy là người đầu tiên gửi lời chúc phúc đến Bích Duyên &amp; Việt Tiến nhé! 💌
+        </div>
+      `;
+      return;
+    }
+
     wishes.forEach(wish => {
       const firstChar = (wish.name && wish.name.trim().charAt(0).toUpperCase()) || '❤';
       const card = document.createElement('div');

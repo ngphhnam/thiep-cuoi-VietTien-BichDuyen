@@ -13,7 +13,7 @@ const MusicPlayer = (() => {
     playlist = (window.WEDDING_DATA && window.WEDDING_DATA.playlist) || [
       {
         title: "Lễ đường",
-        artist: "Hồ Phi Nal",
+        artist: "Kai Đinh",
         src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/songs/le-duong-b33db5e2.mp3"
       },
       {
@@ -25,6 +25,16 @@ const MusicPlayer = (() => {
         title: "Một đời",
         artist: "14 Casper & Bon",
         src: "https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/songs/mot-doi-ed2a6f03.mp3"
+      },
+      {
+        title: "I Do",
+        artist: "911 Band",
+        src: "https://cdn.jsdelivr.net/gh/quangtuan2201/wedding-invitation@master/mp3/IDo.mp3"
+      },
+      {
+        title: "Beautiful In White",
+        artist: "Shane Filan",
+        src: "https://raw.githubusercontent.com/DungMihn/DungMihnWedding/master/beautifulinwhite.mp3"
       }
     ];
 
@@ -40,12 +50,13 @@ const MusicPlayer = (() => {
         play();
       });
 
-      // Cập nhật trạng thái đĩa quay
+      // Cập nhật trạng thái đĩa quay và nút dừng phát
       audio.addEventListener('play', () => {
         isPlaying = true;
         const vinylDisc = document.getElementById('vinyl-disc');
         if (vinylDisc) vinylDisc.classList.remove('animate-spin-paused');
         renderPlaylistUI();
+        updateToggleUI();
       });
 
       audio.addEventListener('pause', () => {
@@ -53,6 +64,7 @@ const MusicPlayer = (() => {
         const vinylDisc = document.getElementById('vinyl-disc');
         if (vinylDisc) vinylDisc.classList.add('animate-spin-paused');
         renderPlaylistUI();
+        updateToggleUI();
       });
     }
 
@@ -72,23 +84,23 @@ const MusicPlayer = (() => {
         `;
         li.addEventListener('click', (e) => {
           e.stopPropagation();
-          changeTrack(idx);
-          play();
+          if (idx === currentIndex) {
+            toggle();
+          } else {
+            changeTrack(idx);
+            play();
+          }
         });
         playlistContainer.appendChild(li);
       });
     }
 
-    // Toggle phát / tạm dừng hoặc mở drawer
+    // Toggle mở/đóng popup danh sách nhạc
     if (musicBtn) {
       musicBtn.onclick = (e) => {
         e.stopPropagation();
-        if (!isPlaying) {
-          play();
-        } else {
-          if (musicDrawer) {
-            musicDrawer.classList.toggle('active');
-          }
+        if (musicDrawer) {
+          musicDrawer.classList.toggle('active');
         }
       };
     }
@@ -99,6 +111,20 @@ const MusicPlayer = (() => {
         musicDrawer.classList.remove('active');
       }
     });
+
+    updateToggleUI();
+  };
+
+  const updateToggleUI = () => {
+    const toggleLabel = document.getElementById('music-toggle-label');
+    const toggleBtn = document.getElementById('music-toggle-btn');
+    if (toggleLabel) {
+      toggleLabel.textContent = isPlaying ? '⏸️ Dừng phát' : '▶️ Phát nhạc';
+    }
+    if (toggleBtn) {
+      toggleBtn.classList.toggle('is-paused', !isPlaying);
+      toggleBtn.title = isPlaying ? 'Bấm để tạm dừng nhạc' : 'Bấm để tiếp tục phát nhạc';
+    }
   };
 
   const renderPlaylistUI = () => {

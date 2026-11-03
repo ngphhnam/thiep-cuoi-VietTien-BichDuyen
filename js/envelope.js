@@ -4,13 +4,15 @@
  */
 
 const EnvelopeController = (() => {
-  // Lấy tên khách mời từ URL param ?guest=...
+  // Lấy tên khách mời từ URL param ?u=... hoặc ?guest=...
   const getGuestName = () => {
     try {
       const urlParams = new URLSearchParams(window.location.search);
-      const guestParam = urlParams.get('guest');
+      const guestParam = urlParams.get('u') || urlParams.get('guest') || urlParams.get('to');
       if (guestParam && guestParam.trim()) {
-        return decodeURIComponent(guestParam.trim());
+        const decoded = decodeURIComponent(guestParam.trim());
+        // Chuyển dấu gạch dưới _ thành khoảng trắng để hiển thị tự nhiên
+        return decoded.replace(/_/g, ' ');
       }
     } catch (e) {
       console.warn('Error parsing guest name:', e);

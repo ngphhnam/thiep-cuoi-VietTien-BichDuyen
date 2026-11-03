@@ -398,10 +398,14 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
     showToast('Đã lưu mẫu tin nhắn thành công!');
   };
 
-  // 6. Tạo Link Thiệp & Sao Chép
+  // 6. Tạo Link Thiệp & Sao Chép (Định dạng tiếng Việt rõ ràng, gọn gàng, không bị mã hóa %)
   const generateGuestLink = (guestName) => {
     const base = getBaseWeddingUrl();
-    return `${base}?guest=${encodeURIComponent(guestName)}`;
+    const cleanName = (guestName || '')
+      .trim()
+      .replace(/\+/g, '&')
+      .replace(/\s+/g, '_');
+    return `${base}?u=${cleanName}`;
   };
 
   const copyToClipboard = async (text) => {

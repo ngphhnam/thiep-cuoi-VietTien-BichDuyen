@@ -1088,8 +1088,16 @@ html.envelope-locked, body.envelope-locked {
   transition: transform 0.6s ease;
 }
 
+.couple-avatar-wrap img.avatar-bride-img {
+  transform: scale(1.15) translate(4%, 7%);
+}
+
 .couple-card:hover .couple-avatar-wrap img {
   transform: scale(1.08);
+}
+
+.couple-card:hover .couple-avatar-wrap img.avatar-bride-img {
+  transform: scale(1.24) translate(4%, 7%);
 }
 
 .couple-role-tag {
@@ -1889,13 +1897,7 @@ html.envelope-locked, body.envelope-locked {
 }
 
 .lightbox-caption {
-  margin-top: 1rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  font-family: var(--font-serif);
-  font-style: italic;
-  text-align: center;
+  display: none !important;
 }
 
 .lightbox-btn {
@@ -3092,6 +3094,38 @@ html.envelope-locked, body.envelope-locked {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-text-main);
+}
+
+.music-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(201, 162, 39, 0.12);
+  border: 1px solid var(--color-gold);
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-gold-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.music-toggle-btn:hover {
+  background: var(--color-gold);
+  color: #ffffff;
+}
+
+.music-toggle-btn.is-paused {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: #10b981;
+  color: #059669;
+}
+
+.music-toggle-btn.is-paused:hover {
+  background: #10b981;
+  color: #ffffff;
 }
 
 .playlist-list {

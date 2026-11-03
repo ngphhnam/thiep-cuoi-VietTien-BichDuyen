@@ -170,7 +170,7 @@ const GalleryController = (() => {
       counter.textContent = `( ${currentLightboxIndex + 1} / ${items.length} )`;
     }
     if (caption) {
-      caption.textContent = items[currentLightboxIndex].caption || '';
+      caption.textContent = '';
     }
 
     modal.classList.add('active');
@@ -238,7 +238,7 @@ const GalleryController = (() => {
       counter.textContent = `( ${currentLightboxIndex + 1} / ${items.length} )`;
     }
     if (caption) {
-      caption.textContent = items[currentLightboxIndex].caption || '';
+      caption.textContent = '';
     }
   };
 

@@ -324,7 +324,7 @@
         <div class="couple-card reveal-item">
           <div class="couple-avatar-wrap">
             <img decoding="async" src="image/avatar-bride.jpg" alt="Cô dâu Isave Nguyễn Thị Bích Duyên"
-              loading="lazy" />
+              class="avatar-bride-img" loading="lazy" />
           </div>
           <div class="couple-role-tag">CÔ DÂU</div>
           <h3 class="couple-name">ISAVE NGUYỄN THỊ BÍCH DUYÊN</h3>
@@ -531,7 +531,7 @@
         </div>
         <!-- 5. Ngoài trời -->
         <div class="gallery-item reveal-item is-revealed" onclick="GalleryController.openLightbox(4)">
-          <img decoding="async" src="image/wedding-01.jpg" alt="Nụ cười hạnh phúc (Ngoài trời)" loading="lazy" />
+          <img decoding="async" src="image/wedding-02.jpg" alt="Ánh mắt trao nhau (Ngoài trời)" loading="lazy" />
           <div class="gallery-item-overlay">
             <div class="gallery-zoom-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2">
@@ -791,77 +791,7 @@
       <div class="wishes-feed-wrapper reveal-item delay-100">
         <h3 class="wishes-feed-title">Lời Chúc Từ Khách Quý</h3>
         <div id="wishes-feed" class="wishes-feed">
-          <div class="wish-card">
-            <div class="wish-header">
-              <div class="wish-author-info">
-                <div class="wish-avatar">M</div>
-                <div>
-                  <div class="wish-author-name">Minh Hiếu</div>
-                  <div class="wish-relation">Bạn thân • Cả hai</div>
-                </div>
-              </div>
-              <div class="wish-time">20:15 - 23/08/2026</div>
-            </div>
-            <div class="wish-text">Chúc hai bạn trăm năm hạnh phúc, đầu bạc răng long, sớm sinh quý tử nhé! Rất háo hức
-              chờ đến ngày cưới!</div>
-            <div class="wish-actions">
-              <button class="btn-like-wish liked">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                </svg>
-                <span class="like-count">12</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="wish-card">
-            <div class="wish-header">
-              <div class="wish-author-info">
-                <div class="wish-avatar">T</div>
-                <div>
-                  <div class="wish-author-name">Thanh Trúc</div>
-                  <div class="wish-relation">Bạn cô dâu • Cô dâu</div>
-                </div>
-              </div>
-              <div class="wish-time">18:30 - 23/08/2026</div>
-            </div>
-            <div class="wish-text">Chúc mừng cô dâu xinh đẹp nhất trần đời! Chúc hai vợ chồng luôn ngọt ngào và hạnh
-              phúc như ngày đầu tiên!</div>
-            <div class="wish-actions">
-              <button class="btn-like-wish">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                </svg>
-                <span class="like-count">8</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="wish-card">
-            <div class="wish-header">
-              <div class="wish-author-info">
-                <div class="wish-avatar">T</div>
-                <div>
-                  <div class="wish-author-name">Tuấn Anh</div>
-                  <div class="wish-relation">Đồng nghiệp chú rể • Chú rể</div>
-                </div>
-              </div>
-              <div class="wish-time">15:45 - 23/08/2026</div>
-            </div>
-            <div class="wish-text">Chúc mừng người anh em đã tìm được một nửa hoàn hảo. Chúc hai bạn một đời an yên và
-              thịnh vượng!</div>
-            <div class="wish-actions">
-              <button class="btn-like-wish">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                </svg>
-                <span class="like-count">15</span>
-              </button>
-            </div>
-          </div>
+          <!-- Hiển thị các lời chúc thực tế do khách gửi -->
         </div>
       </div>
     </div>
@@ -981,7 +911,9 @@
       <div class="thankyou-hearts">💛 💛 💛</div>
 
       <footer class="site-footer">
-        <p>© 2026 Bích Duyên &amp; Việt Tiến Wedding. All rights reserved. <a href="admin.html" style="opacity: 0.35; text-decoration: none; font-size: 0.75rem;" title="Trang quản trị khách mời">⚙️</a></p>
+        <p>© 2026 Bích Duyên &amp; Việt Tiến Wedding. All rights reserved. <a href="admin.html"
+            style="opacity: 0.35; text-decoration: none; font-size: 0.75rem;" title="Trang quản trị khách mời">⚙️</a>
+        </p>
       </footer>
     </div>
   </section>
@@ -1013,12 +945,15 @@
   <!-- Menu chọn bài hát popup -->
   <div id="music-drawer" class="music-drawer">
     <div class="music-drawer-header">
-      <span class="music-drawer-title">🎵 Danh Sách Nhạc Cưới</span>
+      <span class="music-drawer-title">🎵 Nhạc Cưới</span>
+      <button type="button" id="music-toggle-btn" class="music-toggle-btn" onclick="MusicPlayer.toggle();" title="Bật / Dừng phát nhạc">
+        <span id="music-toggle-label">⏸️ Dừng phát</span>
+      </button>
     </div>
     <ul id="playlist-items" class="playlist-list">
       <li class="playlist-item active" onclick="MusicPlayer.changeTrack(0); MusicPlayer.play();">
         <span>1. Lễ đường</span>
-        <span class="text-muted" style="font-size: 0.75rem;">Hồ Phi Nal</span>
+        <span class="text-muted" style="font-size: 0.75rem;">Kai Đinh</span>
       </li>
       <li class="playlist-item" onclick="MusicPlayer.changeTrack(1); MusicPlayer.play();">
         <span>2. Ta là của nhau</span>
@@ -1027,6 +962,14 @@
       <li class="playlist-item" onclick="MusicPlayer.changeTrack(2); MusicPlayer.play();">
         <span>3. Một đời</span>
         <span class="text-muted" style="font-size: 0.75rem;">14 Casper & Bon</span>
+      </li>
+      <li class="playlist-item" onclick="MusicPlayer.changeTrack(3); MusicPlayer.play();">
+        <span>4. I Do</span>
+        <span class="text-muted" style="font-size: 0.75rem;">911 Band</span>
+      </li>
+      <li class="playlist-item" onclick="MusicPlayer.changeTrack(4); MusicPlayer.play();">
+        <span>5. Beautiful In White</span>
+        <span class="text-muted" style="font-size: 0.75rem;">Shane Filan</span>
       </li>
     </ul>
   </div>
