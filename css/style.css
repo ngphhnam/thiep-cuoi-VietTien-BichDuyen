@@ -1365,6 +1365,11 @@ html.envelope-locked, body.envelope-locked {
   .gallery-hero-carousel {
     height: 560px;
   }
+  /* Chỉ áp dụng trên máy tính cho 2 ảnh đầu để thấy trọn vẹn người */
+  .carousel-slide:nth-child(1) img,
+  .carousel-slide:nth-child(2) img {
+    object-position: center 72%;
+  }
 }
 
 .carousel-slide {
@@ -1386,7 +1391,7 @@ html.envelope-locked, body.envelope-locked {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 12%; /* Giữ trọn khuôn mặt và phần đầu không bị cắt */
+  object-position: center 12%; /* Trên điện thoại giữ nguyên bình thường */
 }
 
 .carousel-overlay {
