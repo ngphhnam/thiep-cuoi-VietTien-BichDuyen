@@ -603,9 +603,12 @@ html.envelope-locked, body.envelope-locked {
 
 .hero-amp {
   font-style: italic;
-  font-weight: 400;
+  font-weight: 300;
+  font-size: 0.85em;
   color: #ffffff;
-  margin-right: 0.25rem;
+  opacity: 0.85;
+  margin: 0;
+  line-height: 1;
 }
 
 @media (min-width: 768px) {
