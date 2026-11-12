@@ -408,8 +408,9 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
     const base = getBaseWeddingUrl();
     const cleanName = (guestName || '')
       .trim()
-      .replace(/\+/g, '&')
-      .replace(/\s+/g, '_');
+      .replace(/\s+/g, '_')
+      .replace(/&/g, '%26')
+      .replace(/\+/g, '%2B');
     return `${base}?u=${cleanName}`;
   };
 
