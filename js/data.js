@@ -78,7 +78,7 @@ const WEDDING_DATA = {
       image: "image/wedding-04.jpg",
       area: "Tư gia Nhà Gái",
       address: "Tổ 2, Khu Phố 3, Long Thủy, Phước Long, Đồng Nai",
-      mapUrl: "https://maps.google.com/?q=Long+Th%E1%BB%A7y%2C+Ph%C6%B0%E1%BB%9Bc+Long%2C+%C4%90%E1%BB%93ng+Nai"
+      mapUrl: "https://maps.app.goo.gl/Pr7w4g5zpZbaz5z1A?g_st=ic"
     },
     {
       id: "tiec-cuoi",
@@ -89,7 +89,7 @@ const WEDDING_DATA = {
       image: "image/wedding-05.jpg",
       area: "Trung Tâm Tiệc Cưới",
       address: "Phước Long, Đồng Nai",
-      mapUrl: "https://maps.google.com/?q=Ph%C6%B0%E1%BB%9Bc+Long%2C+%C4%90%E1%BB%93ng+Nai"
+      mapUrl: "https://www.google.com/maps?q=11.8532887,106.9959150"
     }
   ],
 

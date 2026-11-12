@@ -10,6 +10,7 @@ const AdminApp = (() => {
   const STORAGE_KEY_GUESTS = 'wedding_admin_guests_v1';
   const STORAGE_KEY_TEMPLATE = 'wedding_admin_msg_template';
   const STORAGE_KEY_SHEET_URL = 'wedding_admin_sheet_url';
+  const STORAGE_KEY_WISHES = 'wedding_custom_wishes';
   const DEFAULT_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyBdBB6x_9SwFdLJxtYzVdjm1URAPD2r32iDaC0mlhbwamKd9ljm43ZhX_MXV4LeTmgMw/exec';
 
   // Mẫu tin nhắn mời cưới mặc định
@@ -24,6 +25,7 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
 
   // State ứng dụng
   let guests = [];
+  let wishes = [];
   let currentFilter = 'all';
   let searchQuery = '';
 
@@ -100,6 +102,9 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
     if (templateInput) {
       templateInput.value = savedTemplate || DEFAULT_MESSAGE_TEMPLATE;
     }
+
+    // Tải danh sách lời chúc
+    loadWishes();
 
     updateSheetSyncStatus();
     // Tự động đồng bộ với Google Sheets nếu đã cài URL
@@ -611,6 +616,7 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
 
   const render = () => {
     updateStats();
+    renderWishes();
     const tbody = document.getElementById('guests-tbody');
     const emptyState = document.getElementById('empty-state');
     if (!tbody) return;
@@ -666,6 +672,252 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
       .replace(/'/g, '&#39;');
   };
 
+  // 9. Quản Lý Lời Chúc (Sổ Lưu Bút)
+  const loadWishes = () => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_WISHES);
+      wishes = stored ? JSON.parse(stored) : [];
+      if (!Array.isArray(wishes)) wishes = [];
+    } catch (e) {
+      console.error('Lỗi nạp lời chúc:', e);
+      wishes = [];
+    }
+  };
+
+  const saveWishes = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY_WISHES, JSON.stringify(wishes));
+    } catch (e) {
+      console.error('Lỗi lưu lời chúc:', e);
+    }
+  };
+
+  const renderWishes = () => {
+    const tbody = document.getElementById('wishes-tbody');
+    const emptyState = document.getElementById('wishes-empty-state');
+    if (!tbody) return;
+
+    if (wishes.length === 0) {
+      tbody.innerHTML = '';
+      if (emptyState) emptyState.style.display = 'block';
+      return;
+    }
+
+    if (emptyState) emptyState.style.display = 'none';
+
+    tbody.innerHTML = wishes.map((w, index) => {
+      const senderName = escapeHtml(w.name || 'Khách');
+      const relation = escapeHtml(w.relation || 'Khách mời');
+      const side = escapeHtml(w.side || 'Cả hai');
+      const message = escapeHtml(w.message || '');
+      const time = escapeHtml(w.time || (w.timestamp ? new Date(w.timestamp).toLocaleString('vi-VN') : 'Mới gửi'));
+      const id = w.id || index;
+
+      return `
+        <tr>
+          <td style="color: var(--color-text-muted); font-weight: 500;">${index + 1}</td>
+          <td style="font-weight: 600; color: var(--color-text-primary);">${senderName}</td>
+          <td><span class="badge" style="background: rgba(184, 150, 90, 0.15); color: #855c1b;">${relation}</span></td>
+          <td><span class="badge" style="background: rgba(33, 150, 243, 0.12); color: #0c63c9;">${side}</span></td>
+          <td style="max-width: 320px; white-space: pre-wrap; font-size: 0.9rem; line-height: 1.4;">${message}</td>
+          <td style="font-size: 0.82rem; color: var(--color-text-secondary);">${time}</td>
+          <td style="text-align: right;">
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="AdminApp.deleteWish('${id}')" title="Xóa lời chúc này">
+              ✕
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  };
+
+  const deleteWish = (id) => {
+    if (!confirm('Bạn có chắc muốn xóa lời chúc này không?')) return;
+    wishes = wishes.filter(w => String(w.id) !== String(id));
+    saveWishes();
+    renderWishes();
+    showToast('Đã xóa lời chúc thành công!');
+  };
+
+  const clearAllWishes = () => {
+    if (wishes.length === 0) {
+      showToast('Danh sách lời chúc đang trống!');
+      return;
+    }
+    if (!confirm(`Bạn có chắc chắn muốn xóa TẤT CẢ ${wishes.length} lời chúc không? Hãy nhớ tải file backup trước nhé!`)) return;
+    wishes = [];
+    saveWishes();
+    renderWishes();
+    showToast('Đã xóa toàn bộ lời chúc!');
+  };
+
+  // Tải file JSON
+  const downloadWishesJSON = () => {
+    if (wishes.length === 0) {
+      showToast('Chưa có lời chúc nào để tải về!');
+      return;
+    }
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(wishes, null, 2));
+    const dlAnchorElem = document.createElement('a');
+    dlAnchorElem.setAttribute("href", dataStr);
+    const dateStr = new Date().toISOString().slice(0, 10);
+    dlAnchorElem.setAttribute("download", `loi_chuc_dam_cuoi_${dateStr}.json`);
+    dlAnchorElem.click();
+    showToast(`Đã xuất ${wishes.length} lời chúc thành file JSON!`);
+  };
+
+  // Tải file Excel
+  const downloadWishesExcel = () => {
+    if (typeof XLSX === 'undefined') {
+      alert('Thư viện Excel chưa sẵn sàng. Vui lòng thử lại sau giây lát!');
+      return;
+    }
+    if (wishes.length === 0) {
+      showToast('Chưa có lời chúc nào để xuất Excel!');
+      return;
+    }
+
+    const rows = wishes.map((w, index) => ({
+      'STT': index + 1,
+      'Người Gửi': w.name || '',
+      'Mối Quan Hệ': w.relation || 'Khách mời',
+      'Khách Của': w.side || 'Cả hai',
+      'Lời Chúc': w.message || '',
+      'Thời Gian': w.time || (w.timestamp ? new Date(w.timestamp).toLocaleString('vi-VN') : ''),
+      'ID': w.id || ''
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Lưu Bút Cưới');
+
+    worksheet['!cols'] = [
+      { wch: 6 },
+      { wch: 22 },
+      { wch: 16 },
+      { wch: 14 },
+      { wch: 50 },
+      { wch: 22 },
+      { wch: 16 }
+    ];
+
+    const dateStr = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(workbook, `danh_sach_loi_chuc_${dateStr}.xlsx`);
+    showToast(`Đã xuất ${wishes.length} lời chúc thành file Excel!`);
+  };
+
+  // Nạp lời chúc từ file JSON hoặc Excel đã tải về
+  const handleImportWishes = (event) => {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    const fileName = file.name.toLowerCase();
+
+    if (fileName.endsWith('.json')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (!Array.isArray(imported)) {
+            alert('File JSON không đúng định dạng mảng danh sách lời chúc!');
+            return;
+          }
+          mergeWishes(imported);
+        } catch (err) {
+          alert('Không thể đọc file JSON: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    } else if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) {
+      if (typeof XLSX === 'undefined') {
+        alert('Thư viện đọc Excel chưa sẵn sàng!');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const firstSheetName = workbook.SheetNames[0];
+          const sheet = workbook.Sheets[firstSheetName];
+          const rawRows = XLSX.utils.sheet_to_json(sheet);
+
+          if (!rawRows || rawRows.length === 0) {
+            alert('File Excel không có dữ liệu!');
+            return;
+          }
+
+          const imported = rawRows.map((r, i) => {
+            const name = r['Người Gửi'] || r['Ten'] || r['Tên'] || r['Name'] || '';
+            const msg = r['Lời Chúc'] || r['Noi Dung'] || r['Nội Dung'] || r['Message'] || r['Loi Chuc'] || '';
+            const relation = r['Mối Quan Hệ'] || r['Quan He'] || r['Relation'] || 'Khách mời';
+            const side = r['Khách Của'] || r['Side'] || 'Cả hai';
+            const time = r['Thời Gian'] || r['Time'] || '';
+            const id = r['ID'] || (Date.now() + i);
+
+            return {
+              id: id,
+              name: String(name).trim(),
+              relation: String(relation).trim(),
+              side: String(side).trim(),
+              message: String(msg).trim(),
+              time: time,
+              timestamp: new Date().toISOString(),
+              likes: 1
+            };
+          }).filter(w => w.name && w.message);
+
+          if (imported.length === 0) {
+            alert('Không tìm thấy cột "Người Gửi" và "Lời Chúc" trong file Excel!');
+            return;
+          }
+
+          mergeWishes(imported);
+        } catch (err) {
+          alert('Lỗi đọc file Excel: ' + err.message);
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    } else {
+      alert('Vui lòng chọn file .json hoặc .xlsx!');
+    }
+
+    event.target.value = '';
+  };
+
+  // Hợp nhất lời chúc và lọc trùng lặp
+  const mergeWishes = (importedList) => {
+    let addedCount = 0;
+    loadWishes();
+
+    importedList.forEach(item => {
+      if (!item || !item.name || !item.message) return;
+      // Kiểm tra trùng theo ID hoặc theo cặp (Tên + Nội dung)
+      const isExist = wishes.some(w => 
+        (item.id && String(w.id) === String(item.id)) ||
+        (w.name.trim() === item.name.trim() && w.message.trim() === item.message.trim())
+      );
+
+      if (!isExist) {
+        wishes.unshift({
+          id: item.id || Date.now() + Math.floor(Math.random() * 1000),
+          name: String(item.name).trim(),
+          relation: item.relation || 'Khách quý',
+          side: item.side || 'Cả hai',
+          message: String(item.message).trim(),
+          time: item.time || '',
+          timestamp: item.timestamp || new Date().toISOString(),
+          likes: item.likes || 1
+        });
+        addedCount++;
+      }
+    });
+
+    saveWishes();
+    renderWishes();
+    showToast(`Đã nạp thành công! Thêm mới ${addedCount} lời chúc.`);
+  };
+
   // Toast
   let toastTimer = null;
   const showToast = (msg) => {
@@ -703,7 +955,12 @@ Bấm vào thiệp cưới điện tử bên dưới để xem thông tin chi ti
     closeSheetModal,
     saveSheetUrl,
     disconnectSheet,
-    syncWithSheet
+    syncWithSheet,
+    downloadWishesJSON,
+    downloadWishesExcel,
+    handleImportWishes,
+    deleteWish,
+    clearAllWishes
   };
 })();
 

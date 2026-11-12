@@ -217,6 +217,59 @@
           <p class="empty-desc">Hãy nhập file Excel hoặc dán danh sách tên khách ở phía trên để bắt đầu tạo link mời nhé!</p>
         </div>
       </section>
+
+      <!-- Quản Lý Lời Chúc (Sổ Lưu Bút) -->
+      <section class="card table-card" style="margin-top: 2rem;">
+        <div class="card-header table-header-flex">
+          <div>
+            <h3 class="card-title">💌 Quản Lý Lời Chúc (Sổ Lưu Bút)</h3>
+            <p class="card-subtitle" style="margin-top: 4px; font-size: 0.85rem; color: var(--color-text-secondary);">
+              Sao lưu lời chúc về máy và nạp lại khi cần (tránh mất khi deploy lại trên Vercel).
+            </p>
+          </div>
+          <div class="table-actions-group">
+            <button type="button" class="btn btn-outline-gold btn-sm" onclick="AdminApp.downloadWishesJSON()" title="Tải file JSON dự phòng">
+              📥 Tải File JSON
+            </button>
+            <button type="button" class="btn btn-outline btn-sm" onclick="AdminApp.downloadWishesExcel()" title="Tải file Excel danh sách lời chúc">
+              📊 Tải File Excel
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('wishes-import-input').click()" title="Nạp lời chúc từ file JSON hoặc Excel đã tải về trước đó">
+              📤 Nạp File Lời Chúc
+            </button>
+            <input type="file" id="wishes-import-input" accept=".json, .xlsx, .xls" style="display: none;" onchange="AdminApp.handleImportWishes(event)" />
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="AdminApp.clearAllWishes()" title="Xóa toàn bộ lời chúc lưu trên trình duyệt này">
+              🗑️ Xóa Tất Cả
+            </button>
+          </div>
+        </div>
+
+        <!-- Bảng danh sách lời chúc -->
+        <div class="table-responsive">
+          <table class="guests-table">
+            <thead>
+              <tr>
+                <th width="50">STT</th>
+                <th width="160">Người Gửi</th>
+                <th width="110">Mối Quan Hệ</th>
+                <th width="100">Khách Của</th>
+                <th>Nội Dung Lời Chúc</th>
+                <th width="140">Thời Gian</th>
+                <th width="80" style="text-align: right;">Hành Động</th>
+              </tr>
+            </thead>
+            <tbody id="wishes-tbody">
+              <!-- Render động qua JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="wishes-empty-state" class="empty-state" style="display: none;">
+          <span class="empty-icon">💌</span>
+          <p class="empty-title">Chưa có lời chúc nào trong hệ thống</p>
+          <p class="empty-desc">Khi khách gửi lời chúc trên thiệp cưới hoặc khi bạn nạp file lời chúc cũ, danh sách sẽ hiển thị ở đây.</p>
+        </div>
+      </section>
     </main>
   </div>
 
